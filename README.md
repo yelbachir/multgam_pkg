@@ -3,8 +3,8 @@ This is an Rcpp package which implements automatic smoothing for multiple genera
 
 ## 1. Installation
 `multgam` must be installed from source as follows: 
-1. Download the repository `multgam`.
-2. Run the file `./install.R`.
+- Download the repository `multgam`.
+- Run the file `./install.R`.
 
 ## 2. Main fitting function
 mtgam <- function(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, ListConvInfo=list("iterMax"=500, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
