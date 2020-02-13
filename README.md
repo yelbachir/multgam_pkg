@@ -9,7 +9,7 @@ The package `multgam` must be installed from source as follows.
 ## 2. Usage
 ### 2.1. Main function
 
-Fit the multiple generalized additive model using the `mtgam` method
+Fit the multiple generalized additive model using the `mtgam` method using
 ```R
 fit <- mtgam(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, 
              ListConvInfo=list("iterMax"=500, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), 
