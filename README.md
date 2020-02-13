@@ -18,17 +18,17 @@ fit <- mtgam(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL,
 ``` 
 with arguments:
 - dat: a data frame whose columns contain the input and the output variables. For example: 
-```dat <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+```R
+n <- 1000
+dat <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
 ```
-- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must be conformable to the 
-These are exactly like the formula for a GLM except that smooth terms, s, te,
-ti and t2, can be added to the right hand side to specify that the linear predictor
-depends on smooth functions of predictors (or linear functi.
-
+- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must be conform to the documentation in `mgcv`. For example: 
+```R
 L.formula <- list(y ~ s(x1, bs="cr", k=k) + s(x2, bs="cr", k=k) + s(x3, bs="cr", k=k), 
                   ~ s(x4, bs="cr", k=k) + s(x5, bs="cr", k=k) + s(x6, bs="cr", k=k), 
                   ~ s(x7, bs="cr", k=k)
                   )
+```              
 - fmName: 
 - lambInit: 
 - betaInit: 
