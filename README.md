@@ -8,7 +8,12 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 ### 2.1. Main fitting function
+
 The fitting method:
+``R
+s = "R syntax highlighting"
+print s
+```
 mtgam(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, ListConvInfo=list("iterMax"=500, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 
 - in case you're interested in spatial analysis, the tensor product family in mgcv is not (yet) supported by the optimization since the M-step does not have an analytical solution.
