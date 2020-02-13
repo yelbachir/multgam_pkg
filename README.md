@@ -14,17 +14,18 @@ mtgam <- function(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, Li
 
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
 
-### 2.2. Supported families
+### 2.2. Supported distributions
 
 ### 2.3. Plots
 
-## 3. Extension to new families of distributions
+## 3. Extension to new distributions
 
+## 4. General comments
 
-## 4. Bugs
+## 5. Bugs
 Bugs can be reported to yousra.elbachir@gmail.com with subject: multgam: bugs.
 
-## 5. Citation
+## 6. Citation
 You can acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
 
 ## References
