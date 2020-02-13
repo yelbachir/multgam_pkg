@@ -7,7 +7,7 @@ multgam must be installed from source as follows:
 2. Run install.R
 
 
-## Usage and examples
+## Examples
 
 ## Addition of new families of distributions
 
