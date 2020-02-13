@@ -7,17 +7,28 @@ The package `multgam` must be installed from source as follows.
 - Run the file `./install.R`.
 
 ## 2. Usage
+
 ### 2.1. Main function
 
-Fit the multiple generalized additive model using the `mtgam` method using
+Fit a multiple generalized additive model using the `mtgam` method as follows
 ```R
 fit <- mtgam(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, 
              ListConvInfo=list("iterMax"=500, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), 
              ...)
 ``` 
 with arguments:
-- dat: data frame whose columns contain the input and the output variables,
-- L.formula: a list of formula
+- dat: a data frame whose columns contain the input and the output variables. For example: 
+```dat <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+```
+- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must be conformable to the 
+These are exactly like the formula for a GLM except that smooth terms, s, te,
+ti and t2, can be added to the right hand side to specify that the linear predictor
+depends on smooth functions of predictors (or linear functi.
+
+L.formula <- list(y ~ s(x1, bs="cr", k=k) + s(x2, bs="cr", k=k) + s(x3, bs="cr", k=k), 
+                  ~ s(x4, bs="cr", k=k) + s(x5, bs="cr", k=k) + s(x6, bs="cr", k=k), 
+                  ~ s(x7, bs="cr", k=k)
+                  )
 - fmName: 
 - lambInit: 
 - betaInit: 
@@ -27,6 +38,8 @@ The additive structure must be in the form of equation (1) in the paper.
 
 
 - in case you're interested in spatial analysis, the tensor product family in mgcv is not (yet) supported by the optimization since the M-step does not have an analytical solution.
+
+
 ### 2.2. Supported distributions
 
 ### 2.3. Example distributions
