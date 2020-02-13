@@ -1,4 +1,4 @@
-# multgam : automatic smoothing for multiple GAMs
+# multgam: automatic smoothing for multiple GAMs
 The Rcpp package `multgam` implements the double optimization for automatically smoothing multiple generalized additive models as described in El-Bachir and Davison (2019). This uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the inputs and for visualizing the outputs.
 
 ## 1. Installation
