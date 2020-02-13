@@ -9,6 +9,9 @@ Rcpp package implementing automatic smoothing for multiple generalized additive 
 
 ## 2. Examples
 
+
+Several examples can be found in the subdirectory `/simulation_paper/Multgam`, which reproduces Section 3 of the paper.
+
 ## 3. Addition of new families of distributions
 
 
