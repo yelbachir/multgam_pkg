@@ -1,15 +1,15 @@
 # multgam
 Rcpp package implementing automatic smoothing for multiple generalized additive models as described in El-Bachir and Davison (2019).
 
-## Installation
+## 1. Installation
 multgam must be installed from source as follows: 
 1. Download the repository multgam.
 2. Run install.R
 
 
-## Examples
+## 2. Examples
 
-## Addition of new families of distributions
+## 3. Addition of new families of distributions
 
 
 ## References
