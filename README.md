@@ -10,7 +10,7 @@ The package `multgam` must be installed from source as follows.
 ### 2.1. Main fitting function
 
 The fitting method:
-``R
+```R
 s = "R syntax highlighting"
 print s
 ```
