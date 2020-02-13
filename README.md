@@ -8,6 +8,8 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
+The package fits univariate and multivariate probability distributions with smooth additive structures on their parameters. The (vector of) random variables are assumed independent.
+
 ### 2.1. Main function
 
 Fit a multiple generalized additive model using the `mtgam` method as follows
@@ -20,16 +22,18 @@ with arguments:
 - dat: a data frame whose columns contain the input and the output variables. For example: 
 ```R
 n <- 1000
-dat <- data.frame(y=runif(n), x1=runif(n), x2=runif(n), x3=runif(n)) ## y is the output and x1, x2 and x3 are the inputs
+dat <- data.frame(y1=runif(n), y2=runif(n), x1=runif(n), x2=runif(n), x3=runif(n)) ## y1 and y2 are the outputs and x1, x2 and x3 are the inputs
 ```
-- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must be conform to the documentation in `mgcv`. For example: 
+- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must conform to the documentation in `mgcv`. For example if ($y_1$, $y_2$) is a random vector following a bivariate distribution such that  whose  and : 
 ```R
-L.formula <- list(y ~ s(x1, bs="cr", k=k) + s(x2, bs="cr", k=k) + s(x3, bs="cr", k=k), 
-                  ~ s(x4, bs="cr", k=k) + s(x5, bs="cr", k=k) + s(x6, bs="cr", k=k), 
-                  ~ s(x7, bs="cr", k=k)
+k <- 20 ## dimension of the basis function
+L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline family of basis functions
+                  ~ s(x2, bs="cc", k=k) + s(x3, bs="tp", k=k), ## tp is the thin plate regression spline
+                  y2 ~ s(x4, bs="cr", k=k),
+                  ~ s(x5, bs="cr", k=k)
                   )
 ```              
-- fmName: 
+- fmName: name of the probability distribution
 - lambInit: 
 - betaInit: 
 - ListConvInfo: 
