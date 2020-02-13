@@ -28,7 +28,7 @@ Bugs can be reported to yousra.elbachir@gmail.com by sending an email with:
 - content: a fully reproducible example and a simple description of the problem.
 
 ## 6. Citation
-You can acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
+Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
 
 ## References
 Yousra El-Bachir and Anthony C. Davison. Fast automatic smoothing for generalized additive models. *Journal of Machine Learning Research*, 20(173):1--27, 2019. Available at http://jmlr.org/beta/papers/v20/18-659.html.
