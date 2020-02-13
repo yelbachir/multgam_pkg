@@ -23,9 +23,9 @@ Several examples can be found in the subdirectory `./simulation_paper/Multgam`, 
 ## 4. General comments
 
 ## 5. Bugs
-Bugs can be reported to yousra.elbachir@gmail.com by sending an email:
-- with subject: multgam: bugs,
-- with a fully reproducible example.
+Bugs can be reported to yousra.elbachir@gmail.com by sending an email with:
+- subject: multgam: bugs,
+- content: a fully reproducible example and a simple description of the problem.
 
 ## 6. Citation
 You can acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
