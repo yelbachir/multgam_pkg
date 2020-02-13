@@ -1,0 +1,8 @@
+Package: multgam
+Title: Automatic smoothing for multiple generalized additive models.
+Version: 1.0
+Author: Yousra El-Bachir
+Maintainer: Yousra El-Bachir <yousra.elbachir@gmail.com>
+Imports: Rcpp, RcppEigen
+LinkingTo: Rcpp, RcppEigen, BH
+ByteCompile: true
