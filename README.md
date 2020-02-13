@@ -11,7 +11,7 @@ mtgam <- function(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, Li
 
 - in case you're interested in spatial analysis, the tensor product family in mgcv is not (yet) supported by the optimization since the M-step does not have an analytical solution.
 
-Several examples can be found in the subdirectory `/simulation_paper/Multgam`, which reproduces Section 3 of the paper.
+Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
 
 ### Supported families
 
@@ -21,7 +21,7 @@ Several examples can be found in the subdirectory `/simulation_paper/Multgam`, w
 
 
 ## 4. Bugs
-Bugs can be reported to yousra.elbachir@gmail.com with subject: "multgam: bugs".
+Bugs can be reported to yousra.elbachir@gmail.com with subject: multgam: bugs.
 
 ## Citation
 You can acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
