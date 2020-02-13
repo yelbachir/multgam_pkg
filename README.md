@@ -6,16 +6,17 @@ This is an Rcpp package which implements automatic smoothing for multiple genera
 - Download the repository `multgam`.
 - Run the file `./install.R`.
 
-## 2. Main fitting function
+## 2. Usage
+### 2.1. Main fitting function
 mtgam <- function(dat, L.formula, fmName="gev", lambInit=NULL, betaInit=NULL, ListConvInfo=list("iterMax"=500, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 
 - in case you're interested in spatial analysis, the tensor product family in mgcv is not (yet) supported by the optimization since the M-step does not have an analytical solution.
 
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
 
-### Supported families
+### 2.2. Supported families
 
-### Plots
+### 2.3. Plots
 
 ## 3. Extension to new families of distributions
 
@@ -23,7 +24,7 @@ Several examples can be found in the subdirectory `./simulation_paper/Multgam`, 
 ## 4. Bugs
 Bugs can be reported to yousra.elbachir@gmail.com with subject: multgam: bugs.
 
-## Citation
+## 5. Citation
 You can acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
 
 ## References
