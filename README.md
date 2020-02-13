@@ -20,7 +20,7 @@ with arguments:
 - dat: a data frame whose columns contain the input and the output variables. For example: 
 ```R
 n <- 1000
-dat <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+dat <- data.frame(y=runif(n), x1=runif(n), x2=runif(n), x3=runif(n)) ## y is the output and x1, x2 and x3 are the inputs
 ```
 - L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must be conform to the documentation in `mgcv`. For example: 
 ```R
