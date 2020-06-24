@@ -1,5 +1,10 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization. This uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression, i.e., non-smooth functions of inputs whose regularization matrices are identity matrices. The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
+
+Y_i ~ F(\mu_i, \tau_i), where Y_i are independent random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
+\mu_i = \beta_{10} + f_{11}(x_1) + ... f_p(x_p) or eventually \mu_i = \beta_0 + \beta_1 w_1 + ... + \beta_r w_r + f_2(x_2) + ... f_p(x_p)
+\tau_i = \beta_{20} + f_{21}(z_1) + ... f_q(z_q), 
+such that the regression coefficents of the f_j and those of the w_j are subject to the L2 penalty. 
 
 ## Table of content
 
@@ -11,7 +16,7 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
-The package trains univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The (vector of) output variables are assumed to be independent.
+The package learns univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The (vector of) output variables are assumed to be independent.
 
 ### 2.1. Main function
 
@@ -26,15 +31,17 @@ with arguments:
 - `fmName`: the name of the probability distribution of the output variables, further details can be found in ..........,
 - `lambInit`: vector of starting values for the L2 regularization hyper-parameters. If not supplied, these will be computed,
 - `betaInit`: vector of starting values for the regression coefficients. If not supplied, these will be computed,
-- `groupReg`: list of size L.formula giving the order to  
+- `groupReg`: list of as many vectors as there are non-smooth functions in a generalized linear model. Each vector contains as many values as
+of how to regularize the parametric forms, i.e., one lambda for a group of beta or one lambda per beta? default value is the same hyper-parameter for all parametric regression coefficients,
 - `ListConvInfo$iterMax`: number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
 - `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
 - `ListConvInfo$PenTol`: tolerance for the maximization of the penalized log-likelihood, 
 - `ListConvInfo$progressM`: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
 - `ListConvInfo$MLTol`: tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
-- ....: additional arguments supplied to the package `mgcv`.
+- ....: additional arguments to supply to the function `gam()` in `mgcv`.
+For additional information on `dat` and `L.formula` see the examples below, or the documentation for the R package `mgcv` in CRAN.
 
-For additional information on `dat` and `L.formula` see the examples below or the documentation for the R package `mgcv` in CRAN.
+The output `fit` of the function `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This includes plots, predictions, etc...
 
 
 . For example: 
@@ -65,16 +72,13 @@ Return levels
 ### 2.3. Example distributions
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
 
-
-### 2.3. Plots
-
 ## 3. Extension to new distributions
 
 ## 4. General comments
-The package is under development. 
+The package is under development. For 
 
 ## 5. Bugs
-Bugs can be reported to yousra.elbachir@gmail.com by sending an email with:
+Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
 - subject: multgam: bugs,
 - content: a reproducible example and a simple description of the problem.
 
