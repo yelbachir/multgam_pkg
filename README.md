@@ -1,5 +1,5 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the double statistical optimization algorithm described in El-Bachir and Davison (2019), which automatically fits and smooths multiple generalized additive models (GAMs). This uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization. This uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
 
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
@@ -8,7 +8,7 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
-The package fits univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The (vector of) output variables are assumed to be independent.
+The package trains univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The (vector of) output variables are assumed to be independent.
 
 ### 2.1. Main function
 
@@ -18,9 +18,20 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
              ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
 with arguments:
-- dat: a data frame whose columns contain the input and the output variables. This must conform to the documentation in `mgcv`,
-- L.formula: a list of formulae linking the outputs to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must conform to the documentation in `mgcv`
+- dat: a data frame whose columns contain the input and the output variables,
+- L.formula: a list of as many formulae as there are output variables linking the input variables,
+- fmName: the name of the probability distribution of the output variables, further details can be found in ..........,
+- lambInit: vector of starting values for the L2 regularization hyper-parameters. If not supplied, these will be computed,
+- betaInit: vector of starting values for the regression coefficients. If not supplied, these will be computed,
+- groupReg: list of size L.formula giving the order to  
+- ListConvInfo$iterMax: number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
+- ListConvInfo$progressPen: if TRUE, information about the progress of maximization of the penalized log-likelihood will be printed,
+- ListConvInfo$PenTol: tolerance for the maximization of the penalized log-likelihood, 
+- ListConvInfo$progressM: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
+- ListConvInfo$MLTol: tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
+- ....: additional arguments supplied to the package `mgcv`.
 
+For additional information on dat and L.formula see the examples below or the documentation for the R package `mgcv` in CRAN.
 
 
 . For example: 
@@ -36,16 +47,9 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
                   y2 ~ s(x4, bs="cr", k=k),
                   ~ s(x5, bs="cr", k=k)
                   )
-```              
-- fmName: name of the probability distribution
-- lambInit: 
-- betaInit: 
-- ListConvInfo: 
+```             
 
-The additive structure must be in the form of equation (1) in the paper. 
-
-
-- in case you're interested in spatial analysis, the tensor product family in mgcv is not (yet) supported by the optimization since the M-step does not have an analytical solution.
+The additive structure must be in the form of equation (1) in the paper.
 
 
 ### 2.2. Supported distributions
