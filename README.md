@@ -3,6 +3,7 @@ The Rcpp package `multgam` implements the empirical Bayes optimization algorithm
 
 ## Table of content
 
+
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
 - Download the repository `multgam`.
@@ -57,6 +58,9 @@ The additive structure must be in the form of equation (1) in the paper.
 ### 2.2. Supported distributions
 #### 2.2.1. Classical exponential family distributions
 #### 2.2.2. Extreme value distribution families
+Likelihood definition
+Simulation
+Return levels
 
 ### 2.3. Example distributions
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
