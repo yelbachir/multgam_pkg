@@ -1,6 +1,8 @@
 # multgam: automatic smoothing for multiple GAMs
 The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization. This uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
 
+## Table of content
+
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
 - Download the repository `multgam`.
