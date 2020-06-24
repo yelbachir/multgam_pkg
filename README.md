@@ -18,20 +18,20 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
              ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
 with arguments:
-- dat: a data frame whose columns contain the input and the output variables,
-- L.formula: a list of as many formulae as there are output variables linking the input variables,
-- fmName: the name of the probability distribution of the output variables, further details can be found in ..........,
-- lambInit: vector of starting values for the L2 regularization hyper-parameters. If not supplied, these will be computed,
-- betaInit: vector of starting values for the regression coefficients. If not supplied, these will be computed,
-- groupReg: list of size L.formula giving the order to  
-- ListConvInfo$iterMax: number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
-- ListConvInfo$progressPen: if TRUE, information about the progress of maximization of the penalized log-likelihood will be printed,
-- ListConvInfo$PenTol: tolerance for the maximization of the penalized log-likelihood, 
-- ListConvInfo$progressM: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
-- ListConvInfo$MLTol: tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
+- `dat`: a list or a data frame whose columns contain the input and the output variables,
+- `L.formula`: a list of as many formulae as there are output variables linking the input variables,
+- `fmName`: the name of the probability distribution of the output variables, further details can be found in ..........,
+- `lambInit`: vector of starting values for the L2 regularization hyper-parameters. If not supplied, these will be computed,
+- `betaInit`: vector of starting values for the regression coefficients. If not supplied, these will be computed,
+- `groupReg`: list of size L.formula giving the order to  
+- `ListConvInfo$iterMax`: number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
+- `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
+- `ListConvInfo$PenTol`: tolerance for the maximization of the penalized log-likelihood, 
+- `ListConvInfo$progressM`: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
+- `ListConvInfo$MLTol`: tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
 - ....: additional arguments supplied to the package `mgcv`.
 
-For additional information on dat and L.formula see the examples below or the documentation for the R package `mgcv` in CRAN.
+For additional information on `dat` and `L.formula` see the examples below or the documentation for the R package `mgcv` in CRAN.
 
 
 . For example: 
