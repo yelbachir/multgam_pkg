@@ -16,7 +16,7 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
-The package learns univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The (vector of) output variables are assumed to be independent.
+The package learns univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The log-likelihood of the (vector of) output variables should be expressed as the sum of the individual output variables. In practice, `multgam` interprets a GAM as a multiple linear regression whose coefficients are subject to the L2 penalty. In the smooth functions case, the regularization matrices are dense and represent the smoothing matrices (computed by the software), and in the non-smooth functions case, the regularization matrices are the identity matrices that the user can choose to assign different regularization weights for different non-smooth functions; see the argument `groupReg` in the main function `mtgam`. 
 
 ### 2.1. Main function
 
