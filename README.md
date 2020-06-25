@@ -30,7 +30,7 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
 with arguments:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
-- `fmName`: the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
+- `fmName`: a character variable for the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
 - `lambInit`: vector of starting values for the L2 regularization hyper-parameters,
 - `betaInit`: vector of starting values for the regression coefficients,
 - `groupReg`: list of as many vectors as there are non-smooth functions in the parametric multiple regression model. Each element of this list should be a vector or a scalar (indicating the intercept) contains as many values as
