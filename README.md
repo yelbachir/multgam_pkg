@@ -29,7 +29,7 @@ with **arguments**:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
 - `fmName`: a character variable for the name of the probability distribution of the output variables; further details can be found in Section 2.2.,
-- `lambInit`: a vector of starting values for the L2 regularization hyper-parameters. This should be consistent with the values in `groupReg`. Default values are provided,
+- `lambInit`: a vector of starting values for the L2 regularization hyper-parameters. This should contain as many values as non-zero elements supplied to `groupReg`, in addition to the number of smooth functions. Default values are provided,
 - `betaInit`: a vector of starting values for the regression weights. Default values are provided,
 - `groupReg`: a list of length `L.formula` which indicates how to regularize the regression weights of the input variables in the multiple parametric regression models described in each formula of `L.formula`. Each element of `groupReg` is a vector associated to a formula, and contains the numbers of successive input variables in that formula whose regression weights share the same hyper-parameter. The value `0` in place of a vector indicates that the regression weight corresponding to that input variable is an offset, and so should not be penalized. If `NULL`: the regression weights of a smooth function of inputs share the same hyper-parameter, but different smooth functions have different hyper-parameters, and all the remaining non-smooth functions share the same hyper-parameter. 
 For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)`, the argument `groupReg=NULL` would correspond to one hyper-parameter associated with the regression weights of the triple `(x1, x2, x3)`, one hyper-parameter for `s(x1)`, one hyper-parameter for `s(x2)` and no hyper-parameters on the offset. However, if the regression weight for the input variable `x1` is constrained by an L2 penalty, and `x2` and `x3` share the same hyper-parameter, then the corresponding argument should be `groupReg <- list(c(1, 2), 0)`, where `1` corresponds to having one hyper-parameter on the regression weight of `x1`, `2` to having one hyper-parameter on the pair `(x2, x3)`, and `0` indicates that `1` is the offset of the output variable in the second formula in `L.fomrula`,
@@ -39,10 +39,9 @@ For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1
 - `ListConvInfo$progressM`: if `TRUE`, information about the progress of the log-marginal likelihood maximization will be printed, 
 - `ListConvInfo$MLTol`: the tolerance in the maximization of the log-marginal likelihood,
 - `....`: additional arguments to supply to the function `gam()` in `mgcv`.
-For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` in CRAN.
+For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` on CRAN.
 
-The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In addition, `mtgam` provides the output `reg` which contains the values of the hyper-parameters as defined in `groupReg`.
-
+The **outputs** contained in the variable `fit` of `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas `mtgam` provides an additional output vector called `reg`, which contains the values of all the hyper-parameters including those described by the non zero values in `groupReg`.
 
 ### 2.2. Supported distributions and examples
 #### 2.2.1. Classical exponential family distributions
