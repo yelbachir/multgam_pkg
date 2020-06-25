@@ -1,18 +1,10 @@
 # multgam: automatic smoothing for multiple GAMs
 The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the linear or non-linear functions of inputs are not necessarily smooth but their regression weights are constrained by the L2 penalty with possibly different hyper-parameters.
 
-############ remove this
-As a toy example, `multgam` trains models with the following structure:
-Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
-\mu_i = \beta_{10} + f_{11}(x_{i1}) + ... f_{1p}(x_p) or eventually \mu_i = \beta_0 + \beta_1 w_1 + ... + \beta_r w_r + f_2(x_2) + ... f_p(x_p)
-\tau_i = \beta_{20} + f_{21}(z_{i1}) + ... f_q(z_q), 
-such that the regression coefficents of the f_j and those of the w_j are subject to the L2 penalty. 
-################
-
-The package `multgam` uses R as an interface for the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
+The package `multgam` uses R as an interface for the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned functions and perform predictions.
 
 ## Table of content
-
+############ TODO
 
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
@@ -21,16 +13,18 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
-The package trains univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The log-likelihood of the vector of output variables should be expressed as the sum of the contribution of the individual output variables, a particular case is independent random variables. In practice, `multgam` interprets a GAM as a multiple non-linear regression model whose coefficients are subject to the L2 penalty. In the case of smooth functions, the regularization matrices are dense and represent the smoothing matrices (computed by the software). In the case of non-smooth functions, the regularization matrices are the identity matrices to which the user can assign different regularization hyper-parameters for different non-smooth functions; see the argument `groupReg` in the main function `mtgam` below. 
+The output variable can be a vector or a matrix from a univariate or a multivariate probability distribution, but the log-likelihood for the full dataset must be expressed as the sum of the log-likelihoods for an individual observation. A particular case is independent random observations. 
+
+In practice, `multgam` interprets a GAM as a multiple linear regression model whose weights are subject to the L2 penalty. When the functions of inputs are smooth, the regularization matrices are dense and represent the smoothing matrices, which are computed by the package. When the functions of inputs are weighted sums, the regularization matrices are the identity matrices, to which the user can assign different regularization hyper-parameters; see the argument `groupReg` in the function `mtgam` in Section 2.1. 
 
 ### 2.1. Main function
 
-Train a multiple generalized additive model using the `mtgam` method as follows
+Train a multiple generalized additive model using the function `mtgam` as follows
 ```R
 fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, groupReg=NULL, 
              ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
-with arguments:
+with **arguments**:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
 - `fmName`: a character variable for the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
@@ -46,7 +40,7 @@ of how to regularize the parametric forms, i.e., one lambda for a group of beta 
 - ....: additional arguments to supply to the function `gam()` in `mgcv`.
 For additional information on `dat` and `L.formula` see the examples below, or the documentation for the R package `mgcv` in CRAN.
 
-The output `fit` of the function `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This includes plots, predictions, etc...
+The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This allows plots, predictions, etc...
 
 
 . For example: 
@@ -81,6 +75,7 @@ Several examples can be found in the subdirectory `./simulation_paper/Multgam`, 
 
 ## 4. General comments
 The package is under development. For 
+Convergence criteria are conservative
 
 ## 5. Bugs
 Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
