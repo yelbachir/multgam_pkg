@@ -38,7 +38,7 @@ For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1
 - `ListConvInfo$PenTol`: the tolerance in the maximization of the penalized log-likelihood, 
 - `ListConvInfo$progressM`: if `TRUE`, information about the progress of the log-marginal likelihood maximization will be printed, 
 - `ListConvInfo$MLTol`: the tolerance in the maximization of the log-marginal likelihood,
-- ....: additional arguments to supply to the function `gam()` in `mgcv`.
+- `....`: additional arguments to supply to the function `gam()` in `mgcv`.
 For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` in CRAN.
 
 The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This can be used for plots, predictions, etc...
