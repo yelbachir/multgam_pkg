@@ -61,28 +61,27 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
 The additive structure must be in the form of expression (1) in the paper.
 
 
-### 2.2. Supported distributions
+### 2.2. Supported distributions and examples
 #### 2.2.1. Classical exponential family distributions
+Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
+
 #### 2.2.2. Extreme value distribution families
 Likelihood definition
 Simulation
 Return levels
 
-### 2.3. Example distributions
-Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
+### 2.3. Extension to new distributions
 
-## 3. Extension to new distributions
-
-## 4. General comments
+## 3. General comments
 The package is under development. For 
 Convergence criteria are conservative
 
-## 5. Bugs
+## 4. Bugs
 Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
 - subject: multgam: bugs,
 - content: a reproducible example and a simple description of the problem.
 
-## 6. Citation
+## 5. Citation
 Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
 
 ## References
