@@ -1,5 +1,5 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression, i.e., non-smooth functions of inputs. The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., not necessarily smooth functions of inputs whose regression coefficients are subject to the L2 penalty. The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
 
 ############ check this
 Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
@@ -31,15 +31,15 @@ with arguments:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
 - `fmName`: a character variable for the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
-- `lambInit`: vector of starting values for the L2 regularization hyper-parameters,
-- `betaInit`: vector of starting values for the regression coefficients,
-- `groupReg`: list of as many vectors as there are non-smooth functions in the parametric multiple regression model. Each element of this list should be a vector or a scalar (indicating the intercept) contains as many values as
+- `lambInit`: a vector of starting values for the L2 regularization hyper-parameters,
+- `betaInit`: a vector of starting values for the regression coefficients,
+- `groupReg`: a list of as many vectors as there are non-smooth functions in the parametric multiple regression model. Each element of this list should be a vector or a scalar (indicating the intercept) contains as many values as
 of how to regularize the parametric forms, i.e., one lambda for a group of beta or one lambda per beta? default value is the same hyper-parameter for all parametric regression coefficients,
-- `ListConvInfo$iterMax`: number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
+- `ListConvInfo$iterMax`: the number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
 - `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
-- `ListConvInfo$PenTol`: tolerance for the maximization of the penalized log-likelihood, 
+- `ListConvInfo$PenTol`: the tolerance for the maximization of the penalized log-likelihood, 
 - `ListConvInfo$progressM`: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
-- `ListConvInfo$MLTol`: tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
+- `ListConvInfo$MLTol`: the tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
 - ....: additional arguments to supply to the function `gam()` in `mgcv`.
 For additional information on `dat` and `L.formula` see the examples below, or the documentation for the R package `mgcv` in CRAN.
 
