@@ -74,10 +74,11 @@ The package is under development. For
 Convergence criteria are conservative
 
 ## 4. Bugs, clarifications and suggestions
-- Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
--- subject: multgam: bugs,
--- content: a reproducible example and a simple description of the problem.
-- Further details for using the package or suggestions for additional extensions can be requested to the maintainer.
+Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
+- subject: multgam: bugs,
+- content: a reproducible example and a simple description of the problem.
+
+Further details on how to use the package or suggestions for additional extensions can be requested to the maintainer.
 
 ## 5. Citation
 Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
