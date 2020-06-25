@@ -1,10 +1,12 @@
 # multgam: automatic smoothing for multiple GAMs
 The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression, i.e., non-smooth functions of inputs. The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
 
-Y_i ~ F(\mu_i, \tau_i), where Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
+############ check this
+Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
 \mu_i = \beta_{10} + f_{11}(x_{i1}) + ... f_{1p}(x_p) or eventually \mu_i = \beta_0 + \beta_1 w_1 + ... + \beta_r w_r + f_2(x_2) + ... f_p(x_p)
 \tau_i = \beta_{20} + f_{21}(z_{i1}) + ... f_q(z_q), 
 such that the regression coefficents of the f_j and those of the w_j are subject to the L2 penalty. 
+################
 
 ## Table of content
 
@@ -16,7 +18,7 @@ The package `multgam` must be installed from source as follows.
 
 ## 2. Usage
 
-The package learns univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The log-likelihood of the (vector of) output variables should be expressed as the sum of the individual output variables. In practice, `multgam` interprets a GAM as a multiple linear regression model whose coefficients are subject to the L2 penalty. In the smooth functions case, the regularization matrices are dense and represent the smoothing matrices (computed by the software). In the non-smooth functions case, the regularization matrices are the identity matrices to which the user can assign different regularization hyper-parameters for different non-smooth functions; see the argument `groupReg` in the main function `mtgam` below. 
+The package trains univariate and multivariate probability distributions whose parameters are represented by sums of unknown smooth functions to be learned. The log-likelihood of the vector of output variables should be expressed as the sum of the contribution of the individual output variables, a particular case is independent random variables. In practice, `multgam` interprets a GAM as a multiple non-linear regression model whose coefficients are subject to the L2 penalty. In the case of smooth functions, the regularization matrices are dense and represent the smoothing matrices (computed by the software). In the case of non-smooth functions, the regularization matrices are the identity matrices to which the user can assign different regularization hyper-parameters for different non-smooth functions; see the argument `groupReg` in the main function `mtgam` below. 
 
 ### 2.1. Main function
 
@@ -26,8 +28,8 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
              ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
 with arguments:
-- `dat`: a list or a data frame whose columns contain the input and the output variables,
-- `L.formula`: a list of as many formulae as there are output variables linking the input variables,
+- `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
+- `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
 - `fmName`: the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
 - `lambInit`: vector of starting values for the L2 regularization hyper-parameters,
 - `betaInit`: vector of starting values for the regression coefficients,
