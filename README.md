@@ -27,11 +27,10 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
 with **arguments**:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
-- `fmName`: a character variable for the name of the probability distribution of the output variables, further details can be found in Section 2.2.,
-- `lambInit`: a vector of starting values for the L2 regularization hyper-parameters,
-- `betaInit`: a vector of starting values for the regression coefficients,
-- `groupReg`: a list of as many vectors as there are non-smooth functions in the parametric multiple regression model. Each element of this list should be a vector or a scalar (indicating the intercept) contains as many values as
-of how to regularize the parametric forms, i.e., one lambda for a group of beta or one lambda per beta? default value is the same hyper-parameter for all parametric regression coefficients, the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty with possibly different amounts
+- `fmName`: a character variable for the name of the probability distribution of the output variables; further details can be found in Section 2.2.,
+- `lambInit`: a vector of starting values for the L2 regularization hyper-parameters. Default values are provided,
+- `betaInit`: a vector of starting values for the regression weights. Default values are provided,
+- `groupReg`: a list of length `L.formula` which indicates how to regularize the regression weights of the input variables in the multiple parametric regression models described in each formula of `L.formula`. Each element of `groupReg` is a vector which contains the number of hyper-parameters to assign to each group of input variables. The value `0` in place of a vector indicates that the regression weight corresponding to that input variable is an offset, and so should not be penalized. If `NULL`: each smooth function of a GAM has its corresponding L2 penalty hyper-parameter, but all the non-smooth functions share the same hyper-parameter. For example, if `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~  1)` and the regression weight for `x1` is constrained by an L2 penalty, and `x2` and `x3` are constrained by the same hyper-parameter, then the corresponding argument should be `groupReg <- list(c(1,2), 0)`, where `1` corresponds to `x1`, `2` to the pair `(x2,x3)` and `0` indicates that `1` is the offset of a new output variable,
 - `ListConvInfo$iterMax`: the number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
 - `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
 - `ListConvInfo$PenTol`: the tolerance for the maximization of the penalized log-likelihood, 
@@ -76,10 +75,11 @@ Return levels
 The package is under development. For 
 Convergence criteria are conservative
 
-## 4. Bugs
-Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
-- subject: multgam: bugs,
-- content: a reproducible example and a simple description of the problem.
+## 4. Bugs, clarifications and suggestions
+- Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
+-- subject: multgam: bugs,
+-- content: a reproducible example and a simple description of the problem.
+- Further details for using the package or suggestions for additional extensions can be requested to the maintainer.
 
 ## 5. Citation
 Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
