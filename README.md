@@ -34,7 +34,7 @@ with **arguments**:
 - `groupReg`: a list of length `L.formula` which indicates how to regularize the regression weights of the input variables in the multiple parametric regression models described in each formula of `L.formula`. Each element of `groupReg` is a vector associated to a formula, and contains the numbers of successive input variables in that formula that share the same hyper-parameter. The value `0` in place of a vector indicates that the regression weight corresponding to that input variable is an offset, and so should not be penalized. If `NULL`: each smooth function of a GAM has a single hyper-parameter, but all the non-smooth functions share the same hyper-parameter. 
 For example, if we have
 `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` 
-and the regression weight for the input variable `x1` is constrained by an L2 penalty, and `x2` and `x3` are constrained by the same hyper-parameter, then the corresponding argument should be 
+and the regression weight for the input variable `x1` is constrained by an L2 penalty, and `x2` and `x3` share the same hyper-parameter, then the corresponding argument should be 
 `groupReg <- list(c(1, 2), 0)`, 
 where `1` corresponds to having one hyper-parameter on `x1`, `2` to having one hyper-parameter on the pair `(x2, x3)`, and `0` indicates that `1` is the offset of the output variable in the second formula in `L.fomrula`,
 - `ListConvInfo$iterMax`: the number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
