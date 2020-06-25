@@ -22,7 +22,8 @@ In practice, `multgam` interprets a GAM as a multiple linear regression model wh
 Train a multiple generalized additive model using the function `mtgam` as follows
 ```R
 fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, groupReg=NULL, 
-             ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, "progressML"=FALSE, "MLTol"=1e-07), ...)
+             ListConvInfo=list("iterMax"=200, "progressPen"=FALSE, "PenTol"=.Machine$double.eps^.5, 
+                               "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
 with **arguments**:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
