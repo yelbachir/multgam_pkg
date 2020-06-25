@@ -1,7 +1,5 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty. 
-
- The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty. As a toy example, `multgam` trains models with the following structure:
 
 ############ check this
 Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
@@ -9,6 +7,8 @@ Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated
 \tau_i = \beta_{20} + f_{21}(z_{i1}) + ... f_q(z_q), 
 such that the regression coefficents of the f_j and those of the w_j are subject to the L2 penalty. 
 ################
+
+The package `multgam` uses R as an interface for the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions.
 
 ## Table of content
 
