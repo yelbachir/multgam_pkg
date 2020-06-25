@@ -1,8 +1,8 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty. As a toy example, `multgam` trains models with the following structure:
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty.
 
 ############ check this
-$`\sqrt{2}`$
+As a toy example, `multgam` trains models with the following structure:
 Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
 \mu_i = \beta_{10} + f_{11}(x_{i1}) + ... f_{1p}(x_p) or eventually \mu_i = \beta_0 + \beta_1 w_1 + ... + \beta_r w_r + f_2(x_2) + ... f_p(x_p)
 \tau_i = \beta_{20} + f_{21}(z_{i1}) + ... f_q(z_q), 
