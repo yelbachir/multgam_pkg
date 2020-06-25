@@ -41,7 +41,7 @@ For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1
 - `....`: additional arguments to supply to the function `gam()` in `mgcv`.
 For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` in CRAN.
 
-The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This can be used for plots, predictions, etc... In addition, `mtgam` provides the output `reg` which contains the values of the hyper-parameters as defined in `groupReg`.
+The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In addition, `mtgam` provides the output `reg` which contains the values of the hyper-parameters as defined in `groupReg`.
 
 
 ### 2.2. Supported distributions and examples
