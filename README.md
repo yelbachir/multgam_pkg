@@ -1,5 +1,7 @@
 # multgam: automatic smoothing for multiple GAMs
-The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., outputs are linked to functions of inputs that are not necessarily smooth but whose regression coefficients are subject to the L2 penalty. The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
+The Rcpp package `multgam` implements the empirical Bayes optimization algorithm described in El-Bachir and Davison (2019), which trains multiple generalized additive models (GAMs) and automatically tunes their L2 regularization hyper-parameters. In particular, `multgam` also provides automatic L2 regularization (ridge penalty) for multiple parametric non-linear regression models, i.e., the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty. 
+
+ The package `multgam` uses R as an interface to the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned smooth functions and perform predictions. As a toy example, `multgam` trains models with the following structure:
 
 ############ check this
 Y_i ~ F(\mu_i, \tau_i), where the Y_i are random (vector of) variables generated from a probability distribution F with parameters \mu_i and \tau_i such that:
@@ -34,7 +36,7 @@ with arguments:
 - `lambInit`: a vector of starting values for the L2 regularization hyper-parameters,
 - `betaInit`: a vector of starting values for the regression coefficients,
 - `groupReg`: a list of as many vectors as there are non-smooth functions in the parametric multiple regression model. Each element of this list should be a vector or a scalar (indicating the intercept) contains as many values as
-of how to regularize the parametric forms, i.e., one lambda for a group of beta or one lambda per beta? default value is the same hyper-parameter for all parametric regression coefficients,
+of how to regularize the parametric forms, i.e., one lambda for a group of beta or one lambda per beta? default value is the same hyper-parameter for all parametric regression coefficients, the functions of inputs are not necessarily smooth but their regression coefficients are constrained by the L2 penalty with possibly different amounts
 - `ListConvInfo$iterMax`: the number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
 - `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
 - `ListConvInfo$PenTol`: the tolerance for the maximization of the penalized log-likelihood, 
