@@ -33,17 +33,19 @@ with **arguments**:
 - `betaInit`: a vector of starting values for the regression weights. Default values are provided,
 - `groupReg`: a list of length `L.formula` which indicates how to regularize the regression weights of the input variables in the multiple parametric regression models described in each formula of `L.formula`. Each element of `groupReg` is a vector associated to a formula, and contains the numbers of successive input variables in that formula whose regression weights share the same hyper-parameter. The value `0` in place of a vector indicates that the regression weight corresponding to that input variable is an offset, and so should not be penalized. If `NULL`: the regression weights of a smooth function of inputs share the same hyper-parameter, but different smooth functions have different hyper-parameters, and all the remaining non-smooth functions share the same hyper-parameter. 
 For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)`, the argument `groupReg=NULL` would correspond to one hyper-parameter associated with the regression weights of the triple `(x1, x2, x3)`, one hyper-parameter for `s(x1)`, one hyper-parameter for `s(x2)` and no hyper-parameters on the offset. However, if the regression weight for the input variable `x1` is constrained by an L2 penalty, and `x2` and `x3` share the same hyper-parameter, then the corresponding argument should be `groupReg <- list(c(1, 2), 0)`, where `1` corresponds to having one hyper-parameter on the regression weight of `x1`, `2` to having one hyper-parameter on the pair `(x2, x3)`, and `0` indicates that `1` is the offset of the output variable in the second formula in `L.fomrula`,
-- `ListConvInfo$iterMax`: the number of maximal iterations for the optimization of the log-marginal likelihood and the penalized log-likelihood,
-- `ListConvInfo$progressPen`: if `TRUE`, information about the progress of maximization of the penalized log-likelihood will be printed,
-- `ListConvInfo$PenTol`: the tolerance for the maximization of the penalized log-likelihood, 
-- `ListConvInfo$progressM`: if TRUE, information about the progress of the maximization of the log-marginal likelihood will be printed, 
-- `ListConvInfo$MLTol`: the tolerance for the maximization of the log-marginal likelihood for the L2 regularization hyper-parameters,
+- `ListConvInfo$iterMax`: an integer for the number of maximal iterations in the optimization of the log-marginal likelihood and the penalized log-likelihood,
+- `ListConvInfo$progressPen`: if `TRUE`, information about the progress of the penalized log-likelihood maximization will be printed,
+- `ListConvInfo$PenTol`: the tolerance in the maximization of the penalized log-likelihood, 
+- `ListConvInfo$progressM`: if `TRUE`, information about the progress of the log-marginal likelihood maximization will be printed, 
+- `ListConvInfo$MLTol`: the tolerance in the maximization of the log-marginal likelihood,
 - ....: additional arguments to supply to the function `gam()` in `mgcv`.
-For additional information on `dat` and `L.formula` see the examples below, or the documentation for the R package `mgcv` in CRAN.
+For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` in CRAN.
 
-The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This allows plots, predictions, etc...
+The **output** `fit` of `mtgam` can be used as if it were computed from the function `gam` in `mgcv`. This can be used for plots, predictions, etc...
 
-
+### 2.2. Supported distributions and examples
+#### 2.2.1. Classical exponential family distributions
+Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
 . For example: 
 ```R
 n <- 1000
@@ -60,12 +62,6 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
 ```             
 
 The additive structure must be in the form of expression (1) in the paper.
-
-
-### 2.2. Supported distributions and examples
-#### 2.2.1. Classical exponential family distributions
-Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
-
 #### 2.2.2. Extreme value distribution families
 Likelihood definition
 Simulation
