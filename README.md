@@ -28,7 +28,7 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
 with **arguments**:
 - `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
-- `fmName`: a character variable for the name of the probability distribution of the output variables; further details can be found in Section 2.2.,
+- `fmName`: a character variable for the name of the probability distribution of the output variables: `"gauss"`for the Gaussian distribution, `"poisson"` for the poisson distribution, `"gev"` for the generalized extreme value distribution, `"anglogit"` for the angular logistic regression, `"binom"` for the binomial distribution, `"gamma"` for the gamma distribution, `"expon"` for the exponential distribution, `"gpd"` for the generalized Pareto distribution, `"pp"` for the point process approach in the extreme value analysis, `"rgev"` for the r-largest extreme value distribution. Details on their parametrization can be found in Section 2.2.,
 - `lambInit`: a vector of starting values for the L2 regularization hyper-parameters. This should contain as many values as non-zero elements supplied to `groupReg`, in addition to the number of smooth functions. Default values are provided,
 - `betaInit`: a vector of starting values for the regression weights. Default values are provided,
 - `groupReg`: a list of length `L.formula` which indicates how to regularize the regression weights of the input variables in the multiple parametric regression models described in each formula of `L.formula`. Each element of `groupReg` is a vector associated to a formula, and contains the numbers of successive input variables in that formula whose regression weights share the same hyper-parameter. The value `0` in place of a vector indicates that the regression weight corresponding to that input variable is an offset, and so should not be penalized. If `NULL`: the regression weights of a smooth function of inputs share the same hyper-parameter, but different smooth functions have different hyper-parameters, and all the remaining non-smooth functions share the same hyper-parameter. 
@@ -45,14 +45,13 @@ The **outputs** contained in the variable `fit` resulting from `mtgam` can be us
 
 ### 2.2. Supported distributions and examples
 #### 2.2.1. Classical exponential family distributions
+- Gaussian 
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
-. For example: 
+
 ```R
 n <- 1000
 dat <- data.frame(y1=runif(n), y2=runif(n), x1=runif(n), x2=runif(n), x3=runif(n)) ## y1 and y2 are the outputs and x1, x2 and x3 are the inputs
-```
-- L.formula: a list of formulae linking the output to the input variables. Each output variable must have an additive structure with smooth functions of inputs. The argument `L.formula` is supplied to the package `mgcv`, so this must conform to the documentation in `mgcv`. For example if ($y_1$, $y_2$) is a random vector following a bivariate distribution such that  whose  and : 
-```R
+
 k <- 20 ## dimension of the basis function
 L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline family of basis functions
                   ~ s(x2, bs="cc", k=k) + s(x3, bs="tp", k=k), ## tp is the thin plate regression spline
@@ -61,7 +60,6 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
                   )
 ```             
 
-The additive structure must be in the form of expression (1) in the paper.
 #### 2.2.2. Extreme value distribution families
 Likelihood definition
 Simulation
