@@ -54,7 +54,7 @@ The function `mtgam` trains probability distributions with functional parameters
 - Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success. 
 
 
-Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
+Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of El-Bachir and Davison (2019).
 
 ```R
 n <- 1000
@@ -104,6 +104,89 @@ with **arguments**:
 and **output**:
 - a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
 
+Examples: 
+```R
+
+library(multgam)
+
+n <- 20e+03 ## sample size
+
+## smooth functions
+f1 <- function(x){ return(0.2 * x^11 * (10 * (1 - x))^6 + 10 * (10 * x)^3 * (1 - x)^10) }
+f2 <- function(x){ return(2 * sin(pi * x)) }
+f3 <- function(x){ return(exp(2*x)) }
+f4 <- function(x){ return(0.1*x^2) }
+f5 <- function(x){ return(.5*sin(2*pi*x)) }
+f6 <- function(x){ return(-.2-0.5*x^3) }
+f7 <- function(x){ return(-0.45*x^2 + .55*sin(pi*x)) }
+
+############################
+########## GEV model #######
+############################
+
+## generate functional parameters
+datGEV <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
+muGEV <- f1(datGEV$x1) + f2(datGEV$x2) + f3(datGEV$x3)
+sigmaGEV <- exp(f4(datGEV$x4) + f5(datGEV$x5) + f6(datGEV$x6))
+xiGEV <- f7(datGEV$x7)
+  
+## generate data
+datGEV$y <- simExtrem(mu=muGEV, sigma=sigmaGEV, xi=xiGEV, family="gev")
+  
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
+                    ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"),  
+                    ~ s(x7, bs="cr"))
+                 
+fit <- mtgam(dat=datGEV, L.formula=L.formula, fmName="gev")
+fit$fitted.values[,1] ## fitted mu
+fit$fitted.values[,2] ## fitted tau
+fit$fitted.values[,3] ## fitted xi
+
+############################
+########## GPD model #######
+############################
+
+## generate functional parameters
+datGPD <- data.frame(x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
+sigmaGPD <- exp(f4(datGPD$x4) + f5(datGPD$x5) + f6(datGPD$x6))
+xiGPD <- f7(datGPD$x7)
+  
+## generate data
+datGPD$y <- simExtrem(sigma=sigmaGPD, xi=xiGPD, family="gpd")
+  
+## fit model
+L.formula <- list(y ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"),  
+                  ~ s(x7, bs="cr"))
+
+fit <- mtgam(dat=datGPD, L.formula=L.formula, fmName="gpd")
+fit$fitted.values[,1] ## fitted tau
+fit$fitted.values[,2] ## fitted xi
+
+############################
+########## GPD model #######
+############################
+
+## generate functional parameters
+datrGEV <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
+murGEV <- f1(datrGEV$x1) + f2(datrGEV$x2) + f3(datrGEV$x3)
+sigmarGEV <- exp(f4(datrGEV$x4) + f5(datrGEV$x5) + f6(datrGEV$x6))
+xirGEV <- f7(datrGEV$x7)
+  
+## generate data
+rl <- 10
+datrGEV$y <- simExtrem(mu=murGEV, sigma=sigmarGEV, xi=xirGEV, r=rl, family="rgev")
+  
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
+                  ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"),  
+                  ~ s(x7, bs="cr"))
+fit <- mtgam(dat=datrGEV, L.formula=L.formula, fmName="rgev")
+fit$fitted.values[,1] ## fitted mu
+fit$fitted.values[,2] ## fitted tau
+fit$fitted.values[,3] ## fitted xi
+
+```
 
 ### 2.3. Extension to new distributions
 New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
