@@ -51,10 +51,7 @@ The function `mtgam` trains probability distributions with functional parameters
 - Poisson distribution: `fmName="poisson"` implements `Poiss(mu)`, where `mu` is the log-rate,
 - Exponential distribution: `fmName="expon"` implements `Expon(mu)`, where `mu` is the log-rate,
 - Gamma distribution: `fmName="gamma"` implements `Gamma(mu, tau)`, where `mu` is the log-shape and `tau` is `-log(sigma)`, `sigma` being the scale,
-- Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success. 
-
-
-Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of El-Bachir and Davison (2019).
+- Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success.
 
 #### 2.2.2. Extreme value distribution families
 - Generalized extreme value distribution: `fmName="gev"` implements `GEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
@@ -92,7 +89,7 @@ with **arguments**:
 and **output**:
 - a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
 
-Examples: 
+#### 2.2.3. Examples: 
 ```R
 
 library(multgam)
@@ -107,6 +104,95 @@ f4 <- function(x){ return(0.1*x^2) }
 f5 <- function(x){ return(.5*sin(2*pi*x)) }
 f6 <- function(x){ return(-.2-0.5*x^3) }
 f7 <- function(x){ return(-0.45*x^2 + .55*sin(pi*x)) }
+
+#################################
+########## Gaussian model #######
+#################################
+
+## generate functional parameters
+datGauss <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n))
+muGauss <- f1(datGauss$x1) + f2(datGauss$x2) + f3(datGauss$x3)
+sigmaGauss <- exp(.5*(f4(datGauss$x4) + f5(datGauss$x5) + f6(datGauss$x6)))
+    
+## generate data
+datGauss$y <- rnorm(n, mean=muGauss, sd=sigmaGauss)
+
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
+                    ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"))
+                 
+fit <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss")
+fit$fitted.values[,1] ## fitted mu
+fit$fitted.values[,2] ## fitted tau
+
+################################
+########## Poisson model #######
+################################
+
+## generate functional parameters
+datPoiss <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+muPoiss <- exp( (f1(datPoiss$x1) + f2(datPoiss$x2) + f3(datPoiss$x3))/6)
+    
+## generate data
+datPoiss$y <- rpois(n, muPoiss)
+
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
+fit <- mtgam(dat=datPoiss, L.formula=L.formula, fmName="poisson")
+fit$fitted.values[,1] ## fitted mu
+
+####################################
+########## Exponential model #######
+####################################
+
+## generate functional parameters
+datExp <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+muExp <- exp( (f1(datExp$x1) + f2(datExp$x2) + f3(datExp$x3))/6)
+    
+## generate data
+datExp$y <- rexp(n, muExp)
+
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
+fit <- mtgam(dat=datExp, L.formula=L.formula, fmName="expon")
+fit$fitted.values[,1] ## fitted mu
+
+##############################
+########## Gamma model #######
+##############################
+
+## generate functional parameters
+datGamma <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n))
+muGamma <- exp((f1(datGamma$x1) + f2(datGamma$x2) + f3(datGamma$x3))/6)
+sigmaGamma <- exp(f4(datGamma$x4) + f5(datGamma$x5) + f6(datGamma$x6))
+    
+## generate data
+datGamma$y <- rgamma(n, shape=muGamma, scale=1/sigmaGamma)
+
+## fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
+                    ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"))
+fmName <- "gamma"
+fit <- mtgam(dat=datGamma, L.formula=L.formula, fmName="gamma")
+fit$fitted.values[,1] ## fitted mu
+fit$fitted.values[,2] ## fitted tau
+
+###########################
+########## Binomial #######
+###########################
+
+## generate functional parameters
+datBinom <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
+muBinom <- binomial()$linkinv( (f1(datBinom$x1) + f2(datBinom$x2) + f3(datBinom$x3) -5)/6)
+  
+## generate data
+datBinom$y <- rbinom(n, 1, muBinom)
+
+# fit model
+L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
+fmName <- "binom"
+fit <- mtgam(dat=datBinom, L.formula=L.formula, fmName="binom")
+fit$fitted.values[,1] ## fitted mu
 
 ############################
 ########## GEV model #######
@@ -192,7 +278,7 @@ for(i in 1:n){
 datPP$y <- cbind(Ni, u, Yi)
 ```
 
-### 2.3. Extension to new distributions
+### 2.4. Extension to new distributions
 New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
 
 ## 3. General comments
