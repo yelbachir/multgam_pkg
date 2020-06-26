@@ -119,8 +119,7 @@ datGauss$y <- rnorm(n, mean=muGauss, sd=sigmaGauss)
 
 ## fit model
 L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
-                    ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"))
-                 
+                    ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"))                
 fit <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss")
 fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
@@ -172,7 +171,6 @@ datGamma$y <- rgamma(n, shape=muGamma, scale=1/sigmaGamma)
 ## fit model
 L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
                     ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"))
-fmName <- "gamma"
 fit <- mtgam(dat=datGamma, L.formula=L.formula, fmName="gamma")
 fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
@@ -190,7 +188,6 @@ datBinom$y <- rbinom(n, 1, muBinom)
 
 # fit model
 L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
-fmName <- "binom"
 fit <- mtgam(dat=datBinom, L.formula=L.formula, fmName="binom")
 fit$fitted.values[,1] ## fitted mu
 
@@ -210,8 +207,7 @@ datGEV$y <- simExtrem(mu=muGEV, sigma=sigmaGEV, xi=xiGEV, family="gev")
 ## fit model
 L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), 
                     ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"),  
-                    ~ s(x7, bs="cr"))
-                 
+                    ~ s(x7, bs="cr"))                
 fit <- mtgam(dat=datGEV, L.formula=L.formula, fmName="gev")
 fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
@@ -232,7 +228,6 @@ datGPD$y <- simExtrem(sigma=sigmaGPD, xi=xiGPD, family="gpd")
 ## fit model
 L.formula <- list(y ~ s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr"),  
                   ~ s(x7, bs="cr"))
-
 fit <- mtgam(dat=datGPD, L.formula=L.formula, fmName="gpd")
 fit$fitted.values[,1] ## fitted tau
 fit$fitted.values[,2] ## fitted xi
