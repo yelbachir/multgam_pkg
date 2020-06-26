@@ -95,11 +95,14 @@ Return levels (quantiles) from the families `gev` and `gpd` can be computed by t
 returnLevel(prob=NULL, mu=NULL, sigma=NULL, xi=NULL, family="gev")
 ```
 with **arguments**:
-- `prob`: a probability for which the return level is computed,
+- `prob`: a scalar for the probability for which the return level is computed,
 - `mu`: a vector of location parameters for the full dataset,
 - `sigma`: a vector of scale parameters for the full dataset,
 - `xi`: a vector of shape parameters for the full dataset,
-- `family`: a character variable which can take `"gev"` or `"gpd"`.
+- `family`: a character variable which can take `"gev"` or `"gpd"`, 
+
+and **output**:
+- a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
 
 
 ### 2.3. Extension to new distributions
