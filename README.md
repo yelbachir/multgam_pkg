@@ -74,10 +74,33 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
 - Point process approach in extreme value analysis: `fmName="pp"` implements `PP(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
 - r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape.
 
-The families `gev`, `gpd`, `rgev` provide simulation code that
+Data from the families `gev`, `gpd` and `rgev` can be simulated by the function
+```R
+simExtrem(mu=NULL, sigma=NULL, xi=NULL, r=NULL, family="gev")
+```
+with **arguments**:
+- `mu`: a vector of location parameters for the full dataset,
+- `sigma`: a vector of scale parameters for the full dataset,
+- `xi`: a vector of shape parameters for the full dataset,
+- `r`: an integer for the number of r largest extremal data per block of GEV data,
+- `family`: a character variable which can take `"gev"`, `"gpd"` or `"rgev"`, 
 
-Simulation
-Return levels
+and **output**: 
+- if `family="gev"` or `family="gpd"`: a vector of length `mu`, which contains the generated data,
+- if `family="rgev"`: a matrix of size `nxr`, where `n` is the length of `mu` and `r` is the number of r largest extremal data per block of GEV. The values in each of the rows are sorted in ascending order.
+
+
+Return levels (quantiles) from the families `gev` and `gpd` can be computed by the function
+```R
+returnLevel(prob=NULL, mu=NULL, sigma=NULL, xi=NULL, family="gev")
+```
+with **arguments**:
+- `prob`: a probability for which the return level is computed,
+- `mu`: a vector of location parameters for the full dataset,
+- `sigma`: a vector of scale parameters for the full dataset,
+- `xi`: a vector of shape parameters for the full dataset,
+- `family`: a character variable which can take `"gev"` or `"gpd"`.
+
 
 ### 2.3. Extension to new distributions
 
