@@ -26,7 +26,7 @@ fit <- mtgam(dat, L.formula, fmName="gauss", lambInit=NULL, betaInit=NULL, group
                                "progressML"=FALSE, "MLTol"=1e-07), ...)
 ``` 
 with **arguments**:
-- `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`,
+- `dat`: a list or a data frame whose columns contain the input and the output variables used in `L.formula`; family specific considerations can be found in Section 2.2.,
 - `L.formula`: a list of as many formulae as there are output variables having additive structures linking the input variables,
 - `fmName`: a character variable for the name of the probability distribution of the output variables: `"gauss"` for the Gaussian distribution, `"poisson"` for the Poisson distribution, `"binom"` for the binomial distribution, `"expon"` for the exponential distribution, `"gamma"` for the gamma distribution, `"gev"` for the generalized extreme value distribution, `"gpd"` for the generalized Pareto distribution, `"pp"` for the point process approach in extreme value analysis, `"rgev"` for the r-largest extreme value distribution. Details on their parametrization and specific considerations can be found in Section 2.2.,
 - `lambInit`: a vector of starting values for the L2 regularization hyper-parameters. This should contain as many values as non-zero elements supplied to `groupReg`, in addition to the number of smooth functions. Default values are provided,
