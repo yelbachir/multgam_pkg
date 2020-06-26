@@ -44,14 +44,14 @@ For additional information on `dat` and `L.formula` see the examples in Section 
 The **outputs** contained in the variable `fit` resulting from `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas `mtgam` provides an additional output vector called `reg`, which contains the values of all the hyper-parameters including those described by the non-zero values in `groupReg`. Following the example given in `groupReg` above, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` and `groupReg=NULL`, then `fit$reg` would be `(lamb1, lamb2, lamb3)`, where `lamb1` would be the hyper-parameter corresponding to the regression weights for `(x1, x2, x3)`, and `lamb2` would be associated to the regression weights of `s(x1)` and `lamb3` to `s(x2)`. If `groupReg <- list(c(1, 2), 0)` then `fit$reg` would be `(lamb1, lamb2, lamb3, lamb4)`, where `lamb1` would be the hyper-parameter corresponding to the regression weight for `x1`, `lamb2` to `(x2, x3)`, `lamb3` to `s(x1)` and `lamb4` to `s(x2)`.
 
 ### 2.2. Supported distributions and examples
-The function `mtgam` trains probability distributions with functional parameters that have a parametrization which does not constrain the parameters range values. 
+The function `mtgam` trains probability distributions with functional parameters whose parametrization does not constrain the parameters range values. 
 
 #### 2.2.1. Classical exponential family distributions
 - Gaussian distribution: `fmName="gauss"` implements `N(mu, tau)`, where `mu` is the mean and `tau` is `2 log(sigma)`, `sigma` being the standard deviation,
 - Poisson distribution: `fmName="poisson"` implements `Poiss(mu)`, where `mu` is the log-rate,
 - Exponential distribution: `fmName="expon"` implements `Expon(mu)`, where `mu` is the log-rate,
 - Gamma distribution: `fmName="gamma"` implements `Gamma(mu, tau)`, where `mu` is the log-shape and `tau` is `-log(sigma)`, `sigma` being the scale,
-- Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of succeess. 
+- Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success. 
 
 
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of the paper.
@@ -71,8 +71,8 @@ L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline
 #### 2.2.2. Extreme value distribution families
 - Generalized extreme value distribution: `fmName="gev"` implements `GEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
 - Generalized Pareto distribution: `fmName="gpd"` implements `GPD(mu, tau)`, where `tau` is the log-scale and `xi` is the shape,
-- Point process approach in extreme value analysis: `fmName="pp"` implements `PP(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
-- r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape.
+- Point process approach in extreme value analysis: `fmName="pp"` implements `PP(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. In the case `pp`, the output variable `y` (say) in the argument `dat` of the function `mtgam` should be a matrix of size `nx(N+2)`, where `n` is the sample size and `N` is the length of the largest block. The first column of the matrix `dat$y` should contain the vector of the `n` block sizes, the second column should be the vector of the `n` thresholds and the remaining columns should be filled with the threshold exceedances and `NA` values when the size `n_i` of the `i`-th block contains fewer exceedances than `N`, i.e., when `n_i<N`,  
+- r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. In the case `rgev`, the output variable `y` (say) in the argument `dat` of the function `mtgam` should be a matrix of size `nxr`, where `n` is the sample size and `r` is the number of r largest extremal data per block of GEV. The values in each of the rows should be sorted in ascending order.
 
 Data from the families `gev`, `gpd` and `rgev` can be simulated by the function
 ```R
