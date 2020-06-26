@@ -56,18 +56,6 @@ The function `mtgam` trains probability distributions with functional parameters
 
 Several examples can be found in the subdirectory `./simulation_paper/Multgam`, which reproduces Section 3 of El-Bachir and Davison (2019).
 
-```R
-n <- 1000
-dat <- data.frame(y1=runif(n), y2=runif(n), x1=runif(n), x2=runif(n), x3=runif(n)) ## y1 and y2 are the outputs and x1, x2 and x3 are the inputs
-
-k <- 20 ## dimension of the basis function
-L.formula <- list(y1 ~ s(x1, bs="cr", k=k), ## cr is the cubic regression spline family of basis functions
-                  ~ s(x2, bs="cc", k=k) + s(x3, bs="tp", k=k), ## tp is the thin plate regression spline
-                  y2 ~ s(x4, bs="cr", k=k),
-                  ~ s(x5, bs="cr", k=k)
-                  )
-```             
-
 #### 2.2.2. Extreme value distribution families
 - Generalized extreme value distribution: `fmName="gev"` implements `GEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
 - Generalized Pareto distribution: `fmName="gpd"` implements `GPD(mu, tau)`, where `tau` is the log-scale and `xi` is the shape,
@@ -163,9 +151,9 @@ fit <- mtgam(dat=datGPD, L.formula=L.formula, fmName="gpd")
 fit$fitted.values[,1] ## fitted tau
 fit$fitted.values[,2] ## fitted xi
 
-############################
-########## GPD model #######
-############################
+#############################
+########## rGEV model #######
+#############################
 
 ## generate functional parameters
 datrGEV <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
@@ -186,6 +174,22 @@ fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 fit$fitted.values[,3] ## fitted xi
 
+#########################################
+########## `dat` when fmName="pp" #######
+#########################################
+
+## for the PP model, assume that the dataset is decomposed in n blocks, each of which contains n_i exceedances above the threshold u_i, such that:
+## - u: vector (of length n) of u_i
+## - Ni: vector (of length n) of n_i
+## - y_i: vector (of length n_i) of the threshold exceedances for the i-th block, then (in pseudo code):
+
+N <- max(Ni)
+Yi <- matrix(NA, nrow=n, ncol=N)
+for(i in 1:n){
+  Yi[1:Ni[i]] <- y_i ## the first n_i elements of the i-th row of Yi contain the vector of threshold exceedances y_i
+}
+
+datPP$y <- cbind(Ni, u, Yi)
 ```
 
 ### 2.3. Extension to new distributions
