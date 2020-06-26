@@ -106,6 +106,7 @@ and **output**:
 
 
 ### 2.3. Extension to new distributions
+New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
 
 ## 3. General comments
 The package is under development. For 
