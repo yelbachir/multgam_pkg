@@ -330,8 +330,8 @@ datPP$y <- cbind(Ni, u, Yi)
 New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
 
 ## 3. General comments
-The package is under development. For 
-Convergence criteria are conservative
+- The package is under development.  
+- The convergence criteria are conservative, if the training seem to not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to maintainer at yousra.elbachir@gmail.com. 
 
 ## 4. Bugs, clarifications and suggestions
 Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
