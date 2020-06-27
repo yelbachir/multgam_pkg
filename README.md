@@ -40,7 +40,7 @@ For example, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1
 - `....`: additional arguments to supply to the function `gam()` in `mgcv`.
 For additional information on `dat` and `L.formula` see the examples in Section 2.2., or the documentation of the R package `mgcv` on CRAN.
 
-The **outputs** contained in the variable `fit` resulting from `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas `mtgam` provides an additional output vector called `reg`, which contains the values of all the hyper-parameters including those described by the non-zero values in `groupReg`. Following the example given in `groupReg` above, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` and `groupReg=NULL`, then `fit$reg` would be `(lamb1, lamb2, lamb3)`, where `lamb1` would be the hyper-parameter corresponding to the regression weights for `(x1, x2, x3)`, and `lamb2` would be associated to the regression weights of `s(x1)` and `lamb3` to `s(x2)`. If `groupReg <- list(c(1, 2), 0)` then `fit$reg` would be `(lamb1, lamb2, lamb3, lamb4)`, where `lamb1` would be the hyper-parameter corresponding to the regression weight for `x1`, `lamb2` to `(x2, x3)`, `lamb3` to `s(x1)` and `lamb4` to `s(x2)`.
+The **outputs** contained in the variable `fit` resulting from `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas in `mtgam`, `sp` contains the values of all the hyper-parameters including those described by the non-zero values in `groupReg`. Following the example given in `groupReg` above, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` and `groupReg=NULL`, then `fit$reg` would be `(lamb1, lamb2, lamb3)`, where `lamb1` would be the hyper-parameter corresponding to the regression weights for `(x1, x2, x3)`, and `lamb2` would be associated to the regression weights of `s(x1)` and `lamb3` to `s(x2)`. If `groupReg <- list(c(1, 2), 0)` then `fit$reg` would be `(lamb1, lamb2, lamb3, lamb4)`, where `lamb1` would be the hyper-parameter corresponding to the regression weight for `x1`, `lamb2` to `(x2, x3)`, `lamb3` to `s(x1)` and `lamb4` to `s(x2)`. Further details can be found at point 1 of Section 2.2.3.
 
 ### 2.2. Supported distributions and examples
 The function `mtgam` trains probability distributions with functional parameters whose parametrization does not constrain the parameters range values. 
@@ -89,6 +89,11 @@ and **output**:
 - a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
 
 #### 2.2.3. Examples: 
+The following examples include:
+  1. the usage of `groupReg` on the Gaussian model for example,
+  2. the training a multiple generalized additive models on the supported distributions,
+  3. the definition of `dat` for the PP model (in pseudo-code).
+
 ```R
 
 library(multgam)
@@ -104,9 +109,55 @@ f5 <- function(x){ return(.5*sin(2*pi*x)) }
 f6 <- function(x){ return(-.2-0.5*x^3) }
 f7 <- function(x){ return(-0.45*x^2 + .55*sin(pi*x)) }
 
-#################################
-########## Gaussian model #######
-#################################
+#######################################
+########## 1. Usage of groupReg #######
+#######################################
+
+## generate functional parameters
+datGauss <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n))
+muGauss <- datGauss$x4 + datGauss$x5 + f1(datGauss$x1) + f2(datGauss$x2) + f3(datGauss$x3)
+sigmaGauss <- exp(.5*( datGauss$x1 + datGauss$x2 + f4(datGauss$x4) + f5(datGauss$x5) + f6(datGauss$x6)))
+    
+## generate data
+datGauss$y <- rnorm(n, mean=muGauss, sd=sigmaGauss)
+
+## fit model
+L.formula <- list(y ~ x4 + x5 + s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), ## additive structure for mu
+                    ~ x1 + x2 + s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr")) ## additive structure for tau     
+groupReg1 <- list(c(1,1), 2) ## mu = beta_0 + beta_4 x4 + beta_5 x5 + f_1(x1) + f_2(x2) + f_3(x3), 
+                            ## where beta_4 is constrained by lambda_4 and beta_5 is constrained by lambda_5, 
+                            ## and all the beta of f_j are constrained by their corresponding lambda_j,
+                            ## whereas the beta_j of x1 and x2 for tau are constrained by the same lambda
+fit1 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg1)
+fit1$sp ## learned hyper-parameters: the first correspond to x4, the second to x5, the third to f_1(x1),
+        ## the fourth to f_2(x2), the fifth to f_3(x_3), the sixth to x1 and x2, the seventh to f_4(x4),
+        ## the eighth to f_5(x5) and the nineth to f_6(x6)
+        
+groupReg2 <- list(2, 2) ## the beta_j of x4 and x5 for mu are constrained by the same lambda
+                        ## and the beta_j of x1 and x2 for tau are constrained by the same lambda  
+fit2 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg2)
+fit2$sp ## learned hyper-parameters: the first correspond to x4 and x5, the second to f_1(x1),
+        ## the third to f_2(x2), the fourth to f_3(x_3), the fifth to x1 and x2, the sixth to f_4(x4),
+        ## the seventh to f_5(x5) and the eighth to f_6(x6)
+        
+## example with offset on tau only
+muGauss <- datGauss$x4 + datGauss$x5 + f1(datGauss$x1) + f2(datGauss$x2) + f3(datGauss$x3)
+sigmaGauss <- exp(.5*(rep(0, n)))
+datGauss$y <- rnorm(n, mean=muGauss, sd=sigmaGauss)
+L.formula <- list(y ~ x4 + x5 + s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), ## additive structure for mu
+                    ~ 1)     
+groupReg3 <- list(c(1,1), 0) 
+fit3 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg3)
+fit3$sp ## learned hyper-parameters: the first correspond to x4, the second to x5, the third to f_1(x1),
+        ## the fourth to f_2(x2), the fifth to f_3(x_3)
+        
+##############################
+########## 2. Examples #######
+##############################
+
+####################
+## Gaussian model ##
+####################
 
 ## generate functional parameters
 datGauss <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n))
@@ -123,9 +174,9 @@ fit <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss")
 fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 
-################################
-########## Poisson model #######
-################################
+###################
+## Poisson model ##
+###################
 
 ## generate functional parameters
 datPoiss <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
@@ -139,9 +190,9 @@ L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
 fit <- mtgam(dat=datPoiss, L.formula=L.formula, fmName="poisson")
 fit$fitted.values[,1] ## fitted mu
 
-####################################
-########## Exponential model #######
-####################################
+#######################
+## Exponential model ##
+#######################
 
 ## generate functional parameters
 datExp <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
@@ -155,9 +206,9 @@ L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
 fit <- mtgam(dat=datExp, L.formula=L.formula, fmName="expon")
 fit$fitted.values[,1] ## fitted mu
 
-##############################
-########## Gamma model #######
-##############################
+#################
+## Gamma model ##
+#################
 
 ## generate functional parameters
 datGamma <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n))
@@ -174,9 +225,9 @@ fit <- mtgam(dat=datGamma, L.formula=L.formula, fmName="gamma")
 fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 
-###########################
-########## Binomial #######
-###########################
+####################
+## Binomial model ##
+####################
 
 ## generate functional parameters
 datBinom <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n))
@@ -190,9 +241,9 @@ L.formula <- list(y ~ s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"))
 fit <- mtgam(dat=datBinom, L.formula=L.formula, fmName="binom")
 fit$fitted.values[,1] ## fitted mu
 
-############################
-########## GEV model #######
-############################
+###############
+## GEV model ##
+###############
 
 ## generate functional parameters
 datGEV <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
@@ -212,9 +263,9 @@ fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 fit$fitted.values[,3] ## fitted xi
 
-############################
-########## GPD model #######
-############################
+##############
+# GPD model ##
+##############
 
 ## generate functional parameters
 datGPD <- data.frame(x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
@@ -231,9 +282,9 @@ fit <- mtgam(dat=datGPD, L.formula=L.formula, fmName="gpd")
 fit$fitted.values[,1] ## fitted tau
 fit$fitted.values[,2] ## fitted xi
 
-#############################
-########## rGEV model #######
-#############################
+################
+## rGEV model ##
+################
 
 ## generate functional parameters
 datrGEV <- data.frame(x1=runif(n), x2=runif(n), x3=runif(n), x4=runif(n), x5=runif(n), x6=runif(n), x7=runif(n))
@@ -254,19 +305,22 @@ fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 fit$fitted.values[,3] ## fitted xi
 
-#########################################
-########## `dat` when fmName="pp" #######
-#########################################
+##########################################################
+########## 3. Definition of `dat` for the PP model #######
+##########################################################
 
-## for the PP model, assume that the dataset is decomposed in n blocks, each of which contains n_i exceedances above the threshold u_i, such that:
+## for the PP model, assume that the dataset is decomposed in n blocks, 
+## each of which contains n_i exceedances above the threshold u_i, such that:
 ## - u: vector (of length n) of u_i
 ## - Ni: vector (of length n) of n_i
-## - y_i: vector (of length n_i) of the threshold exceedances for the i-th block, then (in pseudo code):
+## - y_i: vector (of length n_i) of the threshold exceedances for the i-th block,
+## then (in pseudo code):
 
 N <- max(Ni)
 Yi <- matrix(NA, nrow=n, ncol=N)
 for(i in 1:n){
-  Yi[1:Ni[i]] <- y_i ## the first n_i elements of the i-th row of Yi contain the vector of threshold exceedances y_i
+  Yi[1:Ni[i]] <- y_i ## the first n_i elements of the i-th row of Yi contain 
+                     ## the vector of threshold exceedances y_i
 }
 
 datPP$y <- cbind(Ni, u, Yi)
