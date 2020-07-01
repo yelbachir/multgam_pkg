@@ -9,18 +9,22 @@ The package `multgam` uses R as an interface for the optimization code implement
 [2. Usage](#headers)
 
 [2.1. Main function](#headers)
+
 [2.2. Supported distributions and examples](#headers)
+
 [2.2.1. Classical exponential family distributions](#headers)
+
 [2.2.2. Extreme value distribution families](#headers)
+
 [2.2.3. Examples](#headers)
+
 [2.4. Extension to new distributions](#headers)
+
 [3. General comments](#headers)
+
 [4. Bugs, clarifications and suggestions](#headers)
+
 [5. Citation](#headers)
-
-
-
-
 
 <a name="headers"/>
 
