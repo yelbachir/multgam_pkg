@@ -22,7 +22,7 @@ The package `multgam` uses R as an interface for the optimization code implement
   
 [3. General comments](#comments)
 
-[4. Bugs, clarifications and suggestions](#bugs)
+[4. Bugs, help and suggestions](#bugs)
 
 [5. Citation](#citation)
 
@@ -363,7 +363,7 @@ New families of distributions can be implemented by the user and added to `multg
 - The convergence criteria are conservative, if the training seem to not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to maintainer following Section 4. 
 
 <a name="bugs"/></a>
-## 4. Bugs, clarifications and suggestions
+## 4. Bugs, help and suggestions
 Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
 - subject: multgam: bugs,
 - content: a reproducible example and a simple description of the problem.
