@@ -91,7 +91,7 @@ and **output**:
 #### 2.2.3. Examples: 
 The following examples include:
   1. the usage of `groupReg` on the Gaussian model for example,
-  2. the training a multiple generalized additive models on the supported distributions,
+  2. the training of a multiple generalized additive models on the supported distributions,
   3. the definition of `dat` for the PP model (in pseudo-code).
 
 ```R
