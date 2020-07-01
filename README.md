@@ -5,16 +5,26 @@ The package `multgam` uses R as an interface for the optimization code implement
 
 ## Table of contents
 [1. Installation](#install)
+
 [2. Usage](#usage)
-  [2.1. Main function](#headers)
-  [2.2. Supported distributions and examples](#headers)
-  [2.2.1. Classical exponential family distributions](#headers)
-  [2.2.2. Extreme value distribution families](#headers)
-  [2.2.3. Examples](#headers)
-  [2.4. Extension to new distributions](#headers)
-[3. General comments](#headers)
-[4. Bugs, clarifications and suggestions](#headers)
-[5. Citation](#headers)
+
+[2.1. Main function](#mainFunc)
+
+  [2.2. Supported distributions and examples](#supportedDistrib)
+  
+  [2.2.1. Classical exponential family distributions](#classical)
+  
+  [2.2.2. Extreme value distribution families](#evd)
+  
+  [2.2.3. Examples](#examples)
+  
+  [2.4. Extension to new distributions](#newDistrib)
+  
+[3. General comments](#comments)
+
+[4. Bugs, clarifications and suggestions](#bugs)
+
+[5. Citation](#citation)
 
 <a name="install"/></a>
 ## 1. Installation
@@ -29,6 +39,7 @@ The output variable can be a vector or a matrix from a univariate or a multivari
 
 In practice, `multgam` interprets a GAM as a multiple linear regression model whose weights are subject to the L2 penalty. When the functions of inputs are smooth, the regularization matrices are dense and represent the smoothing matrices, which are computed by the package. When the functions of inputs are weighted sums, the regularization matrices are the identity matrices, to which the user can assign different regularization hyper-parameters; see the argument `groupReg` in the function `mtgam` in Section 2.1. 
 
+<a name="mainFunc"/></a>
 ### 2.1. Main function
 
 Train a multiple generalized additive model using the function `mtgam` as follows
@@ -54,9 +65,11 @@ For additional information on `dat` and `L.formula` see the examples in Section 
 
 The **outputs** contained in the variable `fit` resulting from `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas in `mtgam`, `sp` contains the values of all the hyper-parameters including those described by the non-zero values in `groupReg`. Following the example given in `groupReg` above, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` and `groupReg=NULL`, then `fit$reg` would be `(lamb1, lamb2, lamb3)`, where `lamb1` would be the hyper-parameter corresponding to the regression weights for `(x1, x2, x3)`, and `lamb2` would be associated to the regression weights of `s(x1)` and `lamb3` to `s(x2)`. If `groupReg <- list(c(1, 2), 0)` then `fit$reg` would be `(lamb1, lamb2, lamb3, lamb4)`, where `lamb1` would be the hyper-parameter corresponding to the regression weight for `x1`, `lamb2` to `(x2, x3)`, `lamb3` to `s(x1)` and `lamb4` to `s(x2)`. Further details can be found at point 1 of Section 2.2.3.
 
+<a name="supportedDistrib"/></a>
 ### 2.2. Supported distributions and examples
 The function `mtgam` trains probability distributions with functional parameters whose parametrization does not constrain the parameters range values. 
 
+<a name="classical"/></a>
 #### 2.2.1. Classical exponential family distributions
 - Gaussian distribution: `fmName="gauss"` implements `N(mu, tau)`, where `mu` is the mean and `tau` is `2 log(sigma)`, `sigma` being the standard deviation,
 - Poisson distribution: `fmName="poisson"` implements `Poiss(mu)`, where `mu` is the log-rate,
@@ -64,6 +77,7 @@ The function `mtgam` trains probability distributions with functional parameters
 - Gamma distribution: `fmName="gamma"` implements `Gamma(mu, tau)`, where `mu` is the log-shape and `tau` is `-log(sigma)`, `sigma` being the scale,
 - Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success.
 
+<a name="evd"/></a>
 #### 2.2.2. Extreme value distribution families
 - Generalized extreme value distribution: `fmName="gev"` implements `GEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
 - Generalized Pareto distribution: `fmName="gpd"` implements `GPD(mu, tau)`, where `tau` is the log-scale and `xi` is the shape,
@@ -100,6 +114,7 @@ with **arguments**:
 and **output**:
 - a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
 
+<a name="examples"/></a>
 #### 2.2.3. Examples: 
 The following examples include:
   1. the usage of `groupReg` on the Gaussian model for example,
@@ -338,13 +353,16 @@ for(i in 1:n){
 datPP$y <- cbind(Ni, u, Yi)
 ```
 
+<a name="newDistrib"/></a>
 ### 2.4. Extension to new distributions
 New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
 
+<a name="comments"/></a>
 ## 3. General comments
 - The package is under development.  
 - The convergence criteria are conservative, if the training seem to not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to maintainer following Section 4. 
 
+<a name="bugs"/></a>
 ## 4. Bugs, clarifications and suggestions
 Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending an email with:
 - subject: multgam: bugs,
@@ -352,6 +370,7 @@ Bugs can be reported to the maintainer at yousra.elbachir@gmail.com by sending a
 
 Further details on how to use the package or suggestions for additional extensions can be requested to the maintainer.
 
+<a name="citation"/></a>
 ## 5. Citation
 Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
 
