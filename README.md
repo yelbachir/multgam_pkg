@@ -4,36 +4,25 @@ The Rcpp package `multgam` implements the empirical Bayes optimization algorithm
 The package `multgam` uses R as an interface for the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs and to visualize the learned functions and perform predictions.
 
 ## Table of contents
-[1. Installation](#headers-1)
-
-[2. Usage](#headers)
-
-[2.1. Main function](#headers)
-
-[2.2. Supported distributions and examples](#headers)
-
-[2.2.1. Classical exponential family distributions](#headers)
-
-[2.2.2. Extreme value distribution families](#headers)
-
-[2.2.3. Examples](#headers)
-
-[2.4. Extension to new distributions](#headers)
-
+[1. Installation](#install)
+[2. Usage](#usage)
+  [2.1. Main function](#headers)
+  [2.2. Supported distributions and examples](#headers)
+  [2.2.1. Classical exponential family distributions](#headers)
+  [2.2.2. Extreme value distribution families](#headers)
+  [2.2.3. Examples](#headers)
+  [2.4. Extension to new distributions](#headers)
 [3. General comments](#headers)
-
 [4. Bugs, clarifications and suggestions](#headers)
-
 [5. Citation](#headers)
 
-<a name="headers"/>
-
-
+<a name="install"/></a>
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
 - Download the repository `multgam`.
 - Run the file `./install.R`.
 
+<a name="usage"/></a>
 ## 2. Usage
 
 The output variable can be a vector or a matrix from a univariate or a multivariate probability distribution, but the log-likelihood for the full dataset must be expressed as the sum of the log-likelihoods for an individual observation. A particular case is independent random observations. 
