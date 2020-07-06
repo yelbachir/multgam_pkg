@@ -114,7 +114,7 @@ The following examples include:
   2. the training of a multiple generalized additive models on the supported distributions,
   3. the definition of `dat` for the PP model (in pseudo-code).
   
-These three steps can be found in `./examples`.
+These three steps can be found in `./examples.R`.
 
 <a name="newDistrib"/></a>
 ### 2.4. Extension to new distributions
