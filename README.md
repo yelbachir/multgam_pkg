@@ -18,9 +18,13 @@ The package `multgam` uses R as an interface for the optimization code implement
 
 <a name="install"/></a>
 ## 1. Installation
-The package `multgam` must be installed from source as follows.
+The Rcpp package `multgam` must be installed from source as follows.
 - Download and extract the repository `multgam`.
-- Run the file `./install.R`.
+- In the R file `install.R`, define the character variable `path2multgam`, which must contain the path to the repository `multgam`. For example, if you extracted `multgam` in your desktop and are using linux, you could use 
+```R
+path2multgam <- "~/Desktop/multgam"
+```
+- Run the file `install.R`.
 
 <a name="usage"/></a>
 ## 2. Usage
