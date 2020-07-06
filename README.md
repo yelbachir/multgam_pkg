@@ -7,7 +7,7 @@ The package `multgam` uses R as an interface for the optimization code implement
 [1. Installation](#install)      
         [2. Usage](#usage)      
                 [2.1. Main function](#mainFunc)                                                                                                 
-                                        [2.2. Supported distributions and examples](#supportedDistrib)                                  
+                                        [2.2. Supported probability distributions and examples](#supportedDistrib)                                  
                                         [2.2.1. Classical exponential family distributions](#classical)                                 
                                         [2.2.2. Extreme value distribution families](#evd)                                      
                                         [2.2.3. Examples](#examples)                                    
@@ -56,7 +56,7 @@ For additional information on `dat` and `L.formula` see the examples in Section 
 The **outputs** contained in the variable `fit` resulting from `mtgam` can be used as if `fit` were computed from the function `gam()` in `mgcv`. This can be used for plots, predictions, etc... In particular, the vector `sp` in `gam()` corresponds to the hyper-parameters for the smooth functions only, whereas in `mtgam`, `sp` contains the values of all the hyper-parameters including those described by the non-zero values in `groupReg`. Following the example given in `groupReg` above, if we have `L.formula <- list(y ~ x1 + x2 + x3 + s(x1) + s(x2), ~ 1)` and `groupReg=NULL`, then `fit$reg` would be `(lamb1, lamb2, lamb3)`, where `lamb1` would be the hyper-parameter corresponding to the regression weights for `(x1, x2, x3)`, and `lamb2` would be associated to the regression weights of `s(x1)` and `lamb3` to `s(x2)`. If `groupReg <- list(c(1, 2), 0)` then `fit$reg` would be `(lamb1, lamb2, lamb3, lamb4)`, where `lamb1` would be the hyper-parameter corresponding to the regression weight for `x1`, `lamb2` to `(x2, x3)`, `lamb3` to `s(x1)` and `lamb4` to `s(x2)`. Further details can be found at point 1 of Section 2.2.3.
 
 <a name="supportedDistrib"/></a>
-### 2.2. Supported distributions and examples
+### 2.2. Supported probability distributions and examples
 The function `mtgam` trains probability distributions with functional parameters whose parametrization does not constrain the parameters range values. 
 
 <a name="classical"/></a>
