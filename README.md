@@ -14,7 +14,7 @@ The package `multgam` uses R as an interface for the optimization code implement
         [2.4. Extension to new distributions](#newDistrib)
 
    [3. General comments](#comments)
-[4. Bugs, help and suggestions](#bugs)
+   [4. Bugs, help and suggestions](#bugs)
 [5. Citation](#citation)
 
 <a name="install"/></a>
