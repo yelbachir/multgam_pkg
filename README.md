@@ -10,12 +10,11 @@ The package `multgam` uses R as an interface for the optimization code implement
                                         [2.2. Supported distributions and examples](#supportedDistrib)                                  
                                         [2.2.1. Classical exponential family distributions](#classical)                                 
                                         [2.2.2. Extreme value distribution families](#evd)                                      
-                                        [2.2.3. Examples](#examples)
-                [2.3. Extension to new distributions](#newDistrib)
-        
-                  [3. General comments](#comments)
-[4. Bugs, help and suggestions](#bugs)
-[5. Citation](#citation)
+                                        [2.2.3. Examples](#examples)                                    
+                                        [2.3. Extension to new distributions](#newDistrib)                                      
+                                        [3. General comments](#comments)                                        
+                                        [4. Bugs, help and suggestions](#bugs)                                  
+                                        [5. Citation](#citation)
 
 <a name="install"/></a>
 ## 1. Installation
