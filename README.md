@@ -132,7 +132,20 @@ Further details on how to use the package or suggestions for additional extensio
 
 <a name="citation"/></a>
 ## 5. Citation
-Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019).
+Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019) using (bibtex)
+```
+@article{JMLR:v20:18-659,
+  author  = {El-Bachir, Y. and Davison, A. C.},
+  title   = {Fast }A}utomatic {S}moothing for {G}eneralized {A}dditive {M}odels},
+  journal = {Journal of Machine Learning Research},
+  year    = {2019},
+  volume  = {20},
+  number  = {173},
+  pages   = {1--27},
+  url     = {http://jmlr.org/papers/v20/18-659.html}
+}
+```
+
 
 ## References
 Yousra El-Bachir and Anthony C. Davison. Fast automatic smoothing for generalized additive models. *Journal of Machine Learning Research*, 20(173):1--27, 2019. Available at http://jmlr.org/beta/papers/v20/18-659.html.
