@@ -19,7 +19,7 @@ The package `multgam` uses R as an interface for the optimization code implement
 <a name="install"/></a>
 ## 1. Installation
 The package `multgam` must be installed from source as follows.
-- Download the repository `multgam`.
+- Download and extract the repository `multgam`.
 - Run the file `./install.R`.
 
 <a name="usage"/></a>
