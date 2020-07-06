@@ -136,7 +136,7 @@ Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019
 ```
 @article{JMLR:v20:18-659,
   author  = {El-Bachir, Y. and Davison, A. C.},
-  title   = {Fast }A}utomatic {S}moothing for {G}eneralized {A}dditive {M}odels},
+  title   = {Fast {A}utomatic {S}moothing for {G}eneralized {A}dditive {M}odels},
   journal = {Journal of Machine Learning Research},
   year    = {2019},
   volume  = {20},
