@@ -6,7 +6,7 @@ The package `multgam` uses R as an interface for the optimization code implement
 ## Table of contents
 [1. Installation](#install)                                     
 [2. Usage](#usage)                  
-    [2.1. Main function](#mainFunc)   
+    &nbsp;&nbsp;[2.1. Main function](#mainFunc)   
     [2.2. Supported probability distributions and examples](#supportedDistrib)          
           [2.2.1. Classical exponential family distributions](#classical)         
           [2.2.2. Extreme value distribution families](#evd)          
