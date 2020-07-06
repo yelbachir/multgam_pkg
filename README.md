@@ -5,9 +5,7 @@ The package `multgam` uses R as an interface for the optimization code implement
 
 ## Table of contents
 
-<li>a</li>
-<li>b</li>
-<li>c</li>
+<li> </li>
 
 [1. Installation](#install)                                     
 [2. Usage](#usage)                  
