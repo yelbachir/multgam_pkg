@@ -356,7 +356,7 @@ New families of distributions can be implemented by the user and added to `multg
 <a name="comments"/></a>
 ## 3. General comments
 - The package is under development.  
-- The convergence criteria are conservative, if the training seems to not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to maintainer following Section 4. 
+- The convergence criteria are conservative, if the training does not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to maintainer following Section 4. 
 
 <a name="bugs"/></a>
 ## 4. Bugs, help and suggestions
