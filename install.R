@@ -1,5 +1,5 @@
-##setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) ## set working directory to the location of the running file 
-##setwd("..")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) ## set working directory to the location of the running file 
+setwd("..")
 
 library(Rcpp)
 
