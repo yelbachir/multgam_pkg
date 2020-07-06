@@ -7,11 +7,11 @@ The package `multgam` uses R as an interface for the optimization code implement
 [1. Installation](#install)      
         [2. Usage](#usage)      
         [2.1. Main function](#mainFunc)
-                [2.2. Supported distributions and examples](#supportedDistrib)
+        [2.2. Supported distributions and examples](#supportedDistrib)
                 [2.2.1. Classical exponential family distributions](#classical)
                 [2.2.2. Extreme value distribution families](#evd)
                 [2.2.3. Examples](#examples)
-                [2.4. Extension to new distributions](#newDistrib)
+         [2.3. Extension to new distributions](#newDistrib)
 
    [3. General comments](#comments)
         [4. Bugs, help and suggestions](#bugs)
@@ -115,7 +115,7 @@ The following examples include:
 These three steps can be found in `./examples.R`.
 
 <a name="newDistrib"/></a>
-### 2.4. Extension to new distributions
+### 2.3. Extension to new distributions
 New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
 
 <a name="comments"/></a>
