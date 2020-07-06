@@ -4,8 +4,8 @@ The Rcpp package `multgam` implements the empirical Bayes optimization algorithm
 The package `multgam` uses R as an interface for the optimization code implemented in C++, and uses the R package `mgcv` to set up the matrix of inputs, to visualize the learned functions, and to perform predictions.
 
 ## Table of contents
-[1. Installation](#install)      
-        [2. Usage](#usage)      
+[1. Installation](#install)                                     
+[2. Usage](#usage)      
                 [2.1. Main function](#mainFunc)                                                                                                 
                                         [2.2. Supported probability distributions and examples](#supportedDistrib)                                  
                                         [2.2.1. Classical exponential family distributions](#classical)                                 
