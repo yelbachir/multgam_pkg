@@ -6,7 +6,7 @@ The package `multgam` uses R as an interface for the optimization code implement
 ## Table of contents
 [1. Installation](#install)                                     
 [2. Usage](#usage)                  
-    &nbsp;&nbsp;&nbsp;&nbsp;[2.1. Main function](#mainFunc)   
+    &nbsp;&nbsp;&nbsp;&nbsp;[2.1. Main training function](#mainFunc)   
     &nbsp;&nbsp;&nbsp;&nbsp;[2.2. Supported probability distributions and examples](#supportedDistrib)          
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.1. Classical exponential family distributions](#classical)         
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.2. Extreme value distribution families](#evd)          
@@ -30,7 +30,7 @@ The output variable can be a vector or a matrix from a univariate or a multivari
 In practice, `multgam` interprets a GAM as a multiple linear regression model whose weights are subject to the L2 penalty. When the functions of inputs are smooth, the regularization matrices are dense and represent the smoothing matrices, which are computed by the package. When the functions of inputs are weighted sums, the regularization matrices are the identity matrices, to which the user can assign different regularization hyper-parameters; see the argument `groupReg` in the function `mtgam` in Section 2.1. 
 
 <a name="mainFunc"/></a>
-### 2.1. Main function
+### 2.1. Main training function
 
 Train a multiple generalized additive model using the function `mtgam` as follows
 ```R
