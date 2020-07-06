@@ -1,7 +1,0 @@
-useDynLib(multgam)
-import(RcppEigen)
-importFrom(Rcpp, evalCpp)
-import(mgcv)
-import(BH)
-export(mtgam)
-export(mtgamcpp)
