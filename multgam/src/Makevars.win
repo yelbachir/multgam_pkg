@@ -1,0 +1,26 @@
+## not taken into account in Windows
+##CXX_STD = CXX1XSTD
+
+##CC=icc
+##CXX=icpc
+##FC=ifort
+##F77=ifort
+
+CXX=g++
+
+PKG_CXXFLAGS = -std=c++11
+PKG_CXXFLAGS += $(SHLIB_OPENMP_CXXFLAGS)
+
+## ideal for g++ but not supported by Mac need to switch from clang to gcc manually
+##PKG_CPPFLAGS = -O3 -Wall -ftree-vectorize -march=native -mavx -mfma
+
+PKG_CPPFLAGS += -fopenmp -O3 -g3 -ftree-vectorize -Wall -march=native -mavx -mfma
+##PKG_CPPFLAGS = -g -pg
+
+PKG_LDFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
+
+#not need as all the relevant code is in c++
+PKG_LIBS += $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) $(SHLIB_OPENMP_CXXFLAGS)
+
+PKG_CPPFLAGS += -I../inst/include/
+

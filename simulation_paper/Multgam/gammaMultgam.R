@@ -2,6 +2,7 @@
 ########## 1. Run simulations on the gamma model by multgam library ######
 ########## 2. Save output results in ../output                      ######
 ##########################################################################
+##if(!require(multgam)) install.packages("multgam")
 library(multgam)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) ## set working directory to the location of the running file 
