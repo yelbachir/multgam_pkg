@@ -78,7 +78,7 @@ The function `mtgam` trains probability distributions with functional parameters
 - Point process approach in extreme value analysis: `fmName="pp"` implements `PP(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. In the case `pp`, the output variable `y` (say) in the argument `dat` of the function `mtgam` should be a matrix of size `nx(N+2)`, where `n` is the sample size and `N` is the length of the largest block. The first column of the matrix `dat$y` should contain the vector of the `n` block sizes, the second column should be the vector of the `n` thresholds and the remaining columns should be filled with the threshold exceedances and `NA` values when the size `n_i` of the `i`-th block contains fewer exceedances than `N`, i.e., when `n_i<N`,  
 - r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. In the case `rgev`, the output variable `y` (say) in the argument `dat` of the function `mtgam` should be a matrix of size `nxr`, where `n` is the sample size and `r` is the number of r largest extremal data per block of GEV. The values in each of the rows should be sorted in ascending order.
 
-Data from the families `gev`, `gpd` and `rgev` can be simulated by the function
+Data from the families `gev`, `gpd` and `rgev` can be simulated using the function
 ```R
 simExtrem(mu=NULL, sigma=NULL, xi=NULL, r=NULL, family="gev")
 ```
@@ -115,7 +115,7 @@ The following examples include:
   2. the training of a multiple generalized additive models on the supported distributions,
   3. the definition of `dat` for the PP model (in pseudo-code).
   
-These three steps can be found in `./examples.R`.
+These three steps can be found in the R file `examples.R`.
 
 <a name="newDistrib"/></a>
 ### 2.3. Extension to new distributions
