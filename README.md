@@ -152,6 +152,6 @@ Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019
 
 
 ## References
-Yousra El-Bachir and Anthony C. Davison. Fast automatic smoothing for generalized additive models. *Journal of Machine Learning Research*, 20(173):1--27, 2019. Available at http://jmlr.org/beta/papers/v20/18-659.html.
+Yousra El-Bachir and Anthony C. Davison. Fast automatic smoothing for generalized additive models. *Journal of Machine Learning Research*, 20(173):1-27, 2019. Available at http://jmlr.org/beta/papers/v20/18-659.html.
 
 
