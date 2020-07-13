@@ -31,7 +31,7 @@ path2multgam <- "~/Desktop/multgam"
 
 The output/response variable can be a vector or a matrix from a univariate or a multivariate probability distribution, but the log-likelihood for the full dataset must be expressed as the sum of the log-likelihoods for an individual observation. A particular case is independent random observations. 
 
-In practice, `multgam` interprets a GAM as a multiple linear regression model whose weights are subject to the L2 penalty, and computes the corresponding regularization matrices. When the functions of inputs are smooth, splines for example, the regularization matrices are dense and represent the smoothing matrices. When the functions of inputs are weighted sums of predictors, the regularization matrices are the identity matrices, to which the user can assign different regularization hyper-parameters; see the argument `groupReg` in the function `mtgam` in Section 2.1. 
+In practice, `multgam` interprets a GAM as a multiple linear regression model whose weights are subject to the L2 penalty, and computes the corresponding regularization matrices. When the functions of inputs are smooth, splines for example, the regularization matrices are dense and represent the smoothing matrices. When the functions of inputs are weighted sums of predictors, the regularization matrices are the identity matrices, to which the user can assign different regularization hyper-parameters; see the argument `groupReg` in the function `mtgam` in [Section 2.1](#mainFunc). 
 
 <a name="mainFunc"/></a>
 ### 2.1. Main training function
