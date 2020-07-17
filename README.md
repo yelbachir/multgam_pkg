@@ -74,7 +74,7 @@ The function `mtgam` supports any probability distribution whose log-likelihood 
 - Generalized extreme value distribution: `fmName="gev"` implements `GEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape,
 - Generalized Pareto distribution: `fmName="gpd"` implements `GPD(mu, tau)`, where `tau` is the log-scale and `xi` is the shape,
 - Point process approach in extreme value analysis: `fmName="pp"` implements `PP(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. The output variable `y` (say) in the argument `dat` of the function `mtgam` must be an nx(N+2)-matrix, where `n` is the number of blocks of data that are above the thresholds and `N` is the largest number of block exceedances. Each of the `n` rows of the data matrix `dat$y` corresponds to a block of data and must be filled accordingly. In particular, the first column of `dat$y` must contain the vector of the `n` block sizes, i.e., numbers of exceedances above the thresholds, the second column must be the vector of the `n` thresholds, and the remaining columns must be filled with the threshold exceedances and `NA` values when the size `n_i` of the `i`-th block contains fewer exceedances than `N`, i.e., when `n_i<N`. The `pp` model is still experimental,  
-- r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. As the analogue of the point process approach, the output variable `y` (say) in the argument `dat` should be an nxr-matrix, where `n` is the number of blocks of data and `r` is the pre-specified number of largest extremal data per block. In particular, the rows of `dat$y` must be sorted in ascending order.
+- r-Largest extreme value distribution: `fmName="rgev"` implements `rGEV(mu, tau, xi)`, where `mu` is the location, `tau` is the log-scale and `xi` is the shape. As the analogue of the point process approach, the output variable `y` (say) in the argument `dat` should be an nxr-matrix, where `n` is the number of blocks of data and `r` is the pre-specified number of largest extremal data per block. In particular, the values in the rows of `dat$y` must be sorted in ascending order.
 
 Data from the families `gev`, `gpd` and `rgev` can be simulated using the function
 ```R
@@ -88,7 +88,7 @@ with **arguments**:
 - `family`: a character variable which takes either `"gev"`, `"gpd"` or `"rgev"`, 
 
 and **output**: 
-- if `family="gev"` or `family="gpd"`: a vector of length `mu`, which contains the generated data,
+- if `family="gev"` or `family="gpd"`: a vector of generated data,
 - if `family="rgev"`: a matrix of size `nxr`, where `n` is the length of `mu` and `r` is the number of r largest extremal data per block. The values in each of the rows are sorted in ascending order.
 
 
@@ -101,7 +101,7 @@ with **arguments**:
 - `mu`: a vector of location parameters for the full dataset,
 - `sigma`: a vector of scale parameters for the full dataset,
 - `xi`: a vector of shape parameters for the full dataset,
-- `family`: a character variable which can take `"gev"` or `"gpd"`, 
+- `family`: a character variable which takes either `"gev"` or `"gpd"`, 
 
 and **output**:
 - a vector of return levels corresponding to the probability `prob` and the functional parameters `mu`, `sigma` and `xi`.
