@@ -63,10 +63,10 @@ The function `mtgam` supports any probability distribution whose log-likelihood 
 
 <a name="classical"/></a>
 #### 2.2.1. Classical exponential family distributions
-- Gaussian distribution: `fmName="gauss"` implements `N(mu, tau)`, where `mu` is the mean and `tau` is `2 log(sigma)` with `sigma` being the standard deviation,
+- Gaussian distribution: `fmName="gauss"` implements `N(mu, tau)`, where `mu` is the mean and `tau` is `2 log(sigma)` with `sigma` the standard deviation,
 - Poisson distribution: `fmName="poisson"` implements `Poiss(mu)`, where `mu` is the log-rate,
 - Exponential distribution: `fmName="expon"` implements `Expon(mu)`, where `mu` is the log-rate,
-- Gamma distribution: `fmName="gamma"` implements `Gamma(mu, tau)`, where `mu` is the log-shape and `tau` is `-log(sigma)`, `sigma` being the scale,
+- Gamma distribution: `fmName="gamma"` implements `Gamma(mu, tau)`, where `mu` is the log-shape, `tau` is `-log(sigma)`, and `sigma` is the scale,
 - Binomial distribution: `fmName="binom"` implements `Binom(mu)`, where `mu` is the logit, i.e., `log(p/(1-p))` with `p` the probability of success.
 
 <a name="evd"/></a>
