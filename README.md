@@ -108,12 +108,10 @@ and **output**:
 
 <a name="examples"/></a>
 #### 2.2.3. Examples: 
-The following examples include:
+The R file `examples.R` illustrates three key calls to `mtgam`:
   1. the usage of `groupReg` on the Gaussian model for example,
   2. the training of a multiple generalized additive models on the supported distributions,
-  3. the definition of `dat` for the PP model (in pseudo-code).
-  
-These three steps can be found in the R file `examples.R`.
+  3. the definition of `dat` for the `pp` model (in pseudo-code).
 
 <a name="newDistrib"/></a>
 ### 2.3. Extension to new distributions
