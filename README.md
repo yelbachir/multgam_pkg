@@ -130,7 +130,7 @@ Bugs can be reported to yousra.elbachir@gmail.com by sending an email with:
 - subject: multgam: bugs,
 - content: a reproducible example and a simple description of the problem.
 
-Further details on how to use the package or suggestions for additional extensions can be requested to the maintainer.
+Further details on the usage of the package or suggestions for additional extensions can be requested to the author.
 
 <a name="citation"/></a>
 ## 5. Citation
