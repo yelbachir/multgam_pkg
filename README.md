@@ -134,7 +134,7 @@ Further details on the usage of the package or suggestions for additional extens
 
 <a name="citation"/></a>
 ## 5. Citation
-Acknowledge the use of `multgam` by citing the paper El-Bachir and Davison (2019) using (bibtex)
+Acknowledge the use of `multgam` by refering to this webpage and citing the paper El-Bachir and Davison (2019) using (bibtex)
 ```
 @article{JMLR:v20:18-659,
   author  = {El-Bachir, Y. and Davison, A. C.},
