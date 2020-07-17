@@ -59,7 +59,7 @@ In the call to `mtgam`, the variable `fit` contains useful **outputs** for plots
 
 <a name="supportedDistrib"/></a>
 ### 2.2. Supported probability distributions and examples
-The function `mtgam` supports probability distributions' parametrization that does not constain the range values of the functional parameters. We describe the supported parametrizations in the following sections.
+The function `mtgam` supports any probability distribution whose log-likelihood is differentiable up to the third order and whose parametrization does not constain the range values of the functional parameters. We describe the supported parametrizations in the following sections.
 
 <a name="classical"/></a>
 #### 2.2.1. Classical exponential family distributions
