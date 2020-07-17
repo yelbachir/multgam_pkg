@@ -32,18 +32,18 @@ datGauss$y <- rnorm(n, mean=muGauss, sd=sigmaGauss)
 L.formula <- list(y ~ x4 + x5 + s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr"), ## additive structure for mu
                   ~ x1 + x2 + s(x4, bs="cr") + s(x5, bs="cr") + s(x6, bs="cr")) ## additive structure for tau     
 groupReg1 <- list(c(1,1), 2) ## mu = beta_0 + beta_4 x4 + beta_5 x5 + f_1(x1) + f_2(x2) + f_3(x3), 
-## where beta_4 is constrained by lambda_4 and beta_5 is constrained by lambda_5, 
+## where beta_4 is penalized by lambda_4 and beta_5 is penalized by lambda_5, 
 ## and all the beta of f_j are constrained by their corresponding lambda_j,
 ## whereas the beta_j of x1 and x2 for tau are constrained by the same lambda
 fit1 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg1)
-fit1$sp ## learned hyper-parameters: the first correspond to x4, the second to x5, the third to f_1(x1),
+fit1$sp ## learned hyper-parameters: the first corresponds to x4, the second to x5, the third to f_1(x1),
 ## the fourth to f_2(x2), the fifth to f_3(x_3), the sixth to x1 and x2, the seventh to f_4(x4),
 ## the eighth to f_5(x5) and the nineth to f_6(x6)
 
 groupReg2 <- list(2, 2) ## the beta_j of x4 and x5 for mu are constrained by the same lambda
 ## and the beta_j of x1 and x2 for tau are constrained by the same lambda  
 fit2 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg2)
-fit2$sp ## learned hyper-parameters: the first correspond to x4 and x5, the second to f_1(x1),
+fit2$sp ## learned hyper-parameters: the first corresponds to x4 and x5, the second to f_1(x1),
 ## the third to f_2(x2), the fourth to f_3(x_3), the fifth to x1 and x2, the sixth to f_4(x4),
 ## the seventh to f_5(x5) and the eighth to f_6(x6)
 
@@ -55,7 +55,7 @@ L.formula <- list(y ~ x4 + x5 + s(x1, bs="cr") + s(x2, bs="cr") + s(x3, bs="cr")
                   ~ 1)     
 groupReg3 <- list(c(1,1), 0) 
 fit3 <- mtgam(dat=datGauss, L.formula=L.formula, fmName="gauss", groupReg=groupReg3)
-fit3$sp ## learned hyper-parameters: the first correspond to x4, the second to x5, the third to f_1(x1),
+fit3$sp ## learned hyper-parameters: the first corresponds to x4, the second to x5, the third to f_1(x1),
 ## the fourth to f_2(x2), the fifth to f_3(x_3)
 
 ##############################
@@ -212,11 +212,11 @@ fit$fitted.values[,1] ## fitted mu
 fit$fitted.values[,2] ## fitted tau
 fit$fitted.values[,3] ## fitted xi
 
-##########################################################
-########## 3. Definition of `dat` for the PP model #######
-##########################################################
+############################################################
+########## 3. Definition of `dat` in the `pp` model #######
+############################################################
 
-## for the PP model, assume that the dataset is decomposed in n blocks, 
+## Assume that the dataset is decomposed into n blocks, 
 ## each of which contains n_i exceedances above the threshold u_i, such that:
 ## - u: vector (of length n) of u_i
 ## - Ni: vector (of length n) of n_i
@@ -231,4 +231,3 @@ for(i in 1:n){
 }
 
 datPP$y <- cbind(Ni, u, Yi)
-```
