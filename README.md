@@ -115,7 +115,7 @@ The R file `examples.R` illustrates three key calls to `mtgam`:
 
 <a name="newDistrib"/></a>
 ### 2.3. Extension to new distributions
-New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the maintainer at yousra.elbachir@gmail.com who can do this for you.
+New families of distributions can be implemented by the user and added to `multgam`, but for a numerically stable implementation, it is preferable to contact the author at yousra.elbachir@gmail.com who can do this for you.
 
 <a name="comments"/></a>
 ## 3. General comments
