@@ -84,12 +84,12 @@ with **arguments**:
 - `mu`: a vector of location parameters for the full dataset,
 - `sigma`: a vector of scale parameters for the full dataset,
 - `xi`: a vector of shape parameters for the full dataset,
-- `r`: an integer for the number of r largest extremal data per block of GEV data,
-- `family`: a character variable which can take `"gev"`, `"gpd"` or `"rgev"`, 
+- `r`: an integer for the number of r largest extremal data per block in the r-largest model,
+- `family`: a character variable which takes either `"gev"`, `"gpd"` or `"rgev"`, 
 
 and **output**: 
 - if `family="gev"` or `family="gpd"`: a vector of length `mu`, which contains the generated data,
-- if `family="rgev"`: a matrix of size `nxr`, where `n` is the length of `mu` and `r` is the number of r largest extremal data per block of GEV. The values in each of the rows are sorted in ascending order.
+- if `family="rgev"`: a matrix of size `nxr`, where `n` is the length of `mu` and `r` is the number of r largest extremal data per block. The values in each of the rows are sorted in ascending order.
 
 
 Return levels (quantiles) from the families `gev` and `gpd` can be computed by the function
