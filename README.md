@@ -119,7 +119,7 @@ New families of distributions can be implemented by the user and added to `multg
 
 <a name="comments"/></a>
 ## 3. General comments
-- The package is under development.  
+- The package is under development and is currently being re-implemented with the object-oriented perspective in mind.
 - The package has been tested with the following basis functions in the argument `L.formula` in `mtgam`: `bs="tp"` (thin plate regression splines), `bs="cr"` (cubic regression splines), `bs="cc"` (cyclic cubic regression splines).
 - The point process approach in extreme value analysis, i.e. `fmName="pp"`, is still experimental.
 - The convergence criteria are conservative. If the training does not converge, increase `MLTol` to `1e-06` or `1e5`. If this still does not converge, please report the error to the author following [Section 4](#bugs). 
